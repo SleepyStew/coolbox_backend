@@ -131,6 +131,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://coolbox.lol",
+    "https://schoolbox.donvale.vic.edu.au",
 ]
 
 AUTH_USER_MODEL = "schoolboxauth.User"
