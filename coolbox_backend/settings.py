@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-nn!$@tp*qu+unpis49)y#78uex2o%%92@m1v%j)@zw$d$n2e@=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["api.coolbox.lol", "localhost"]
+ALLOWED_HOSTS = ["api.coolbox.lol", "localhost", "schoolbox.donvale.vic.edu.au"]
 
 # Application definition
 
