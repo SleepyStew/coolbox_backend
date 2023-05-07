@@ -20,7 +20,7 @@ class TestView(APIView):
 
 
 class CustomLoginView(APIView):
-    @method_decorator(ratelimit(key="header:User-Agent", rate="3/m"))
+    # @method_decorator(ratelimit(key="header:User-Agent", rate="3/m"))
     def post(self, request, format=None):
         username = request.data.get("username")
         password = request.data.get("password")
