@@ -28,5 +28,10 @@ Delete a reminder
 
 Fields: Id
 
+### REDIRECT DiscordOAuth
+Link discord account
+
+https://discord.com/oauth2/authorize?client_id=999205944133177365&redirect_uri=https%3A%2F%2Fapi.coolbox.lol%2Fdiscord&response_type=code&scope=identify&state=TOKEN
+
 ### DELETE /discord
 Unlink discord account
