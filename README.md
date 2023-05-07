@@ -5,7 +5,7 @@
 
 ### GET /quick-notes
 Returns all quick notes
-'
+
 ### POST /quick-notes
 Updates ALL quick notes
 
