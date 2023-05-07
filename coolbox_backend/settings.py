@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "schoolboxauth",
     "quicknotes",
+    "reminders",
 ]
 
 MIDDLEWARE = [

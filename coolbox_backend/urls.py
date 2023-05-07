@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path
 
 from quicknotes.views import QuickNotesView
+from reminders.views import RemindersView
 
 urlpatterns = [
     path("admin", admin.site.urls),
     path("quick-notes", QuickNotesView.as_view(), name="quick_notes"),
+    path("reminders", RemindersView.as_view(), name="reminders"),
 ]
