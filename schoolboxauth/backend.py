@@ -11,6 +11,11 @@ def token_auth(function):
     def wrap(request, *args, **kwargs):
         token = request.META.get("HTTP_AUTHORIZATION")
 
+        # If token isn't specified in the header, check the query string
+        # Used for discord oauth
+        if not token and request.GET.get("state"):
+            token = "Bearer " + request.GET.get("state")
+
         if not token:
             return Response({}, status.HTTP_401_UNAUTHORIZED)
         elif not token.startswith("Bearer ") and len(token) < 8:
@@ -29,15 +34,15 @@ def token_auth(function):
             if token_object.valid is False:
                 return Response({}, status.HTTP_401_UNAUTHORIZED)
 
-            # If token object has a user, use that user
+            # If token object has a oauth, use that oauth
             if token_object.user:
                 request.user = token_object.user
                 return function(request, *args, **kwargs)
 
-            # Otherwise, try to get the user from the token
+            # Otherwise, try to get the oauth from the token
             user = User.from_token(token)
 
-            # If user exists, set the token object's user to that user
+            # If oauth exists, set the token object's oauth to that oauth
             if user:
                 token_object.user = user
                 token_object.valid = True

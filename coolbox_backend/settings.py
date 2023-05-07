@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "schoolboxauth",
     "quicknotes",
     "reminders",
+    "discordoauth",
 ]
 
 MIDDLEWARE = [

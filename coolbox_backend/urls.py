@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from discordoauth.views import DiscordOAuthView
 from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView
+from schoolboxauth.views import UserView
 
 urlpatterns = [
     path("admin", admin.site.urls),
     path("quick-notes", QuickNotesView.as_view(), name="quick_notes"),
     path("reminders", RemindersView.as_view(), name="reminders"),
+    path("discord", DiscordOAuthView.as_view(), name="discord"),
+    path("user", UserView.as_view(), name="user"),
 ]
