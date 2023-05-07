@@ -7,4 +7,4 @@ class Reminder(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey('schoolboxauth.User', on_delete=models.CASCADE)
     method = models.CharField(max_length=16)
-    due = models.IntegerField(default=0)
+    due = models.IntegerField()
