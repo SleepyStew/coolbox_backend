@@ -1,6 +1,6 @@
 # CoolBox Backend
 
-### Authorization: Bearer Token
+### Authorization: Bearer Token (SchoolBox)
 ## Endpoints
 
 ### GET /user
@@ -10,7 +10,7 @@ Returns user information
 Returns all quick notes
 
 ### POST /quick-notes
-Updates ALL quick notes
+Overrides ALL quick notes
 
 Fields: Ordered list of objects(Title, Content)
 
