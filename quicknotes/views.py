@@ -23,8 +23,7 @@ class QuickNotesView(APIView):
 
     @method_decorator(token_auth)
     def post(self, request):
-        quick_notes = request.data.get("quick_notes")
-        serializer = QuickNoteSerializer(data=quick_notes, many=True)
+        serializer = QuickNoteSerializer(data=request.data, many=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -34,7 +33,7 @@ class QuickNotesView(APIView):
             for quick_note in QuickNote.objects.filter(author=request.user):
                 quick_note.delete()
 
-            for index, quick_note in enumerate(quick_notes):
+            for index, quick_note in enumerate(request.data):
                 serializer = QuickNoteSerializer(data=quick_note)
                 if serializer.is_valid():
                     serializer.save(author=request.user, display_id=index)
