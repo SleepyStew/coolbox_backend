@@ -59,8 +59,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                 user = User(id=user_id, name=user_name)
                 user.save()
 
-            print(user)
-
             return user
 
         except rest_framework_simplejwt.exceptions.TokenBackendError:
