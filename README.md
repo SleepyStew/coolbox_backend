@@ -3,6 +3,9 @@
 ### Authorization: Bearer Token
 ## Endpoints
 
+### GET /user
+Returns user information
+
 ### GET /quick-notes
 Returns all quick notes
 
@@ -24,3 +27,6 @@ Fields: Title, Due, Method
 Delete a reminder
 
 Fields: Id
+
+### DELETE /discord
+Unlink discord account
