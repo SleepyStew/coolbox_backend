@@ -127,12 +127,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-}
-
 # allow all
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -141,5 +135,3 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 AUTH_USER_MODEL = "schoolboxauth.User"
-
-SIMPLE_JWT = {"JWT_AUTH_COOKIE": "token", "ACCESS_TOKEN_LIFETIME": timedelta(days=1)}

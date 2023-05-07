@@ -18,11 +18,8 @@ from django.contrib import admin
 from django.urls import path
 
 from quicknotes.views import QuickNotesView
-from schoolboxauth.views import CustomLoginView, TestView
 
 urlpatterns = [
     path("admin", admin.site.urls),
-    path("auth/login", CustomLoginView.as_view(), name="custom_login"),
     path("quick-notes", QuickNotesView.as_view(), name="quick_notes"),
-    path("test", TestView.as_view(), name="test_view"),
 ]
