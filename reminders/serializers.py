@@ -7,6 +7,7 @@ class ReminderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reminder
         fields = (
+            "id",
             "title",
             "method",
             "due",
