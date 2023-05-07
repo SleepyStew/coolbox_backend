@@ -10,4 +10,5 @@ class ReminderSerializer(serializers.ModelSerializer):
             "title",
             "method",
             "due",
+            "assessment"
         )
