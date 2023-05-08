@@ -43,4 +43,7 @@ class QuickNotesView(APIView):
                 quick_note.save()
             return Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        return Response({}, status=status.HTTP_200_OK)
+        new_notes = QuickNote.objects.filter(author=request.user)
+        new_serializer = QuickNoteSerializer(new_notes, many=True)
+
+        return Response(new_serializer.data, status=status.HTTP_200_OK)
