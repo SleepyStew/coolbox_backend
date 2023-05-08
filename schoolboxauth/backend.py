@@ -1,3 +1,4 @@
+from django.utils import timezone
 from functools import wraps
 
 from rest_framework.response import Response
@@ -43,15 +44,24 @@ def token_auth(function):
                     status.HTTP_401_UNAUTHORIZED,
                 )
 
-            # If token object has a oauth, use that oauth
+            # If token object has a user, use that user
             if token_object.user:
+                # If token is older than 3 days, invalidate it
+                if (timezone.now() - token_object.created_at).days >= 3:
+                    token_object.valid = False
+                    token_object.save()
+                    return Response(
+                        {"detail": "Invalid authentication token."},
+                        status.HTTP_401_UNAUTHORIZED,
+                    )
+
                 request.user = token_object.user
                 return function(request, *args, **kwargs)
 
-            # Otherwise, try to get the oauth from the token
+            # Otherwise, try to get the user from the token
             user = User.from_token(token)
 
-            # If oauth exists, set the token object's oauth to that oauth
+            # If user exists, set the token object's user to that user
             if user:
                 token_object.user = user
                 token_object.valid = True

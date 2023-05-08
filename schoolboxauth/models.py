@@ -11,6 +11,8 @@ from coolbox_backend import settings
 # Create your models here.
 class Token(models.Model):
     token = models.CharField(max_length=512)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     valid = models.BooleanField(default=None, null=True)
     user = models.ForeignKey("User", on_delete=models.CASCADE, null=True)
 
