@@ -17,7 +17,7 @@ Returns all quick notes
 ### PUT /quick-notes
 Overrides ALL quick notes
 
-Fields: Ordered list of objects(Title, Content)
+Fields: Ordered list of objects(*Title, *Content)
 
 ---
 
@@ -27,17 +27,17 @@ Returns all reminders
 ### POST /reminders
 Create a new reminder
 
-Fields: Title, Due, Method, Assessment
+Fields: *Title, *Due, *Method, Assessment
 
 ### PATCH /reminders
 Edit an existing reminder
 
-Fields (All optional except Id): Id, Title, Due, Method, Assessment
+Fields: *Id, Title, Due, Method, Assessment
 
 ### DELETE /reminders
 Delete a reminder
 
-Fields: Id
+Fields: *Id
 
 ---
 
