@@ -22,7 +22,7 @@ class QuickNotesView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @method_decorator(token_auth)
-    def post(self, request):
+    def put(self, request):
         serializer = QuickNoteSerializer(data=request.data, many=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -14,7 +14,7 @@ Returns general information of all users
 ### GET /quick-notes
 Returns all quick notes
 
-### POST /quick-notes
+### PUT /quick-notes
 Overrides ALL quick notes
 
 Fields: Ordered list of objects(Title, Content)
