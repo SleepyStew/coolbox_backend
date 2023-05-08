@@ -17,8 +17,6 @@ class QuickNotesView(APIView):
             "display_id"
         )
         serializer = QuickNoteSerializer(quick_notes, many=True)
-        for index, quick_note in enumerate(serializer.data):
-            quick_note["id"] = index
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @method_decorator(token_auth)

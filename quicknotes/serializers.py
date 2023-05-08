@@ -7,6 +7,7 @@ class QuickNoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuickNote
         fields = (
+            "id",
             "title",
             "content",
         )
