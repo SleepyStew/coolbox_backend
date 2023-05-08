@@ -136,4 +136,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://schoolbox.donvale.vic.edu.au",
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",)
+}
+
 AUTH_USER_MODEL = "schoolboxauth.User"
