@@ -35,3 +35,6 @@ https://discord.com/oauth2/authorize?client_id=999205944133177365&redirect_uri=h
 
 ### DELETE /discord
 Unlink discord account
+
+### GET /users
+Returns general information of all users
