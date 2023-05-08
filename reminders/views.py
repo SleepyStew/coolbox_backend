@@ -31,6 +31,8 @@ class RemindersView(APIView):
 
     @method_decorator(token_auth)
     def delete(self, request):
+        if not request.data.get('id'):
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
         reminder = Reminder.objects.filter(id=request.data.get('id')).first()
         if reminder:
             if not reminder.author == request.user:
@@ -39,4 +41,4 @@ class RemindersView(APIView):
             reminder.delete()
             return Response({}, status=status.HTTP_200_OK)
         else:
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
