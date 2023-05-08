@@ -47,7 +47,7 @@ def token_auth(function):
             # If token object has a user, use that user
             if token_object.user:
                 # If token is older than 3 days, invalidate it
-                if (timezone.now() - token_object.created_at).days >= 3:
+                if (timezone.now() - token_object.created_at).days >= 2:
                     token_object.valid = False
                     token_object.save()
                     return Response(
