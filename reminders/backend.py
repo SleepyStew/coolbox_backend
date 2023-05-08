@@ -15,7 +15,6 @@ def reminder_check():
             if reminder.due < datetime.now().timestamp():
                 if reminder.method in ["discord", "both"]:
                     discord_user = get_discord_user(reminder.author)
-                    print(discord_user)
                     if discord_user:
                         url = (os.environ.get("DISCORD_BOT_URL")
                                + "?user="
