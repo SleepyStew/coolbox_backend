@@ -27,7 +27,12 @@ Returns all reminders
 ### POST /reminders
 Create a new reminder
 
-Fields: Title, Due, Method
+Fields: Title, Due, Method, Assessment
+
+### PATCH /reminders
+Edit an existing reminder
+
+Fields (All optional except Id): Id, Title, Due, Method, Assessment
 
 ### DELETE /reminders
 Delete a reminder
