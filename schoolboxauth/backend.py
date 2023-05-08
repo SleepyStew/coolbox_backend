@@ -17,9 +17,15 @@ def token_auth(function):
             token = "Bearer " + request.GET.get("state")
 
         if not token:
-            return Response({}, status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {"detail": "Missing authentication token."},
+                status.HTTP_401_UNAUTHORIZED,
+            )
         elif not token.startswith("Bearer ") and len(token) < 8:
-            return Response({}, status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {"detail": "Invalid authentication token."},
+                status.HTTP_401_UNAUTHORIZED,
+            )
         else:
             # Get token and ~pre-existing object
             token = token.split("Bearer ")[1]
@@ -32,7 +38,10 @@ def token_auth(function):
 
             # If token object already is invalid, return 401
             if token_object.valid is False:
-                return Response({}, status.HTTP_401_UNAUTHORIZED)
+                return Response(
+                    {"detail": "Invalid authentication token."},
+                    status.HTTP_401_UNAUTHORIZED,
+                )
 
             # If token object has a oauth, use that oauth
             if token_object.user:
@@ -53,6 +62,9 @@ def token_auth(function):
             else:
                 token_object.valid = False
                 token_object.save()
-                return Response({}, status.HTTP_401_UNAUTHORIZED)
+                return Response(
+                    {"detail": "Invalid authentication token."},
+                    status.HTTP_401_UNAUTHORIZED,
+                )
 
     return wrap
