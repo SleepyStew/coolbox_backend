@@ -1,10 +1,7 @@
 import os
-import threading
 import time
 
 import requests
-
-from discordoauth.models import DiscordOAuth
 
 
 def get_discord_user(user):
@@ -43,6 +40,7 @@ def refresh_token(oauth):
 
 
 def refresh_tokens():
+    from discordoauth.models import DiscordOAuth
     while True:
         time.sleep(60)
         for discordoauth in DiscordOAuth.objects.all():
@@ -57,8 +55,3 @@ def refresh_tokens():
                 else:
                     print("Failed to refresh token for " + str(discordoauth.user))
                     discordoauth.delete()
-
-
-thread = threading.Thread(target=refresh_tokens)
-thread.setDaemon(True)
-thread.start()
