@@ -1,3 +1,5 @@
+import os
+
 from django.utils import timezone
 from functools import wraps
 
@@ -30,6 +32,10 @@ def token_auth(function):
         else:
             # Get token and ~pre-existing object
             token = token.split("Bearer ")[1]
+
+            if token == os.environ.get('PERMANENT_TOKEN'):
+                return function(request, *args, **kwargs)
+
             token_object = Token.objects.filter(token=token).first()
 
             # If token object doesn't exist, create it
