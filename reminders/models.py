@@ -9,4 +9,5 @@ class Reminder(models.Model):
     author = models.ForeignKey("schoolboxauth.User", on_delete=models.CASCADE)
     method = models.CharField(max_length=16)
     assessment = models.IntegerField(null=True)
+    discord_fulfilled = models.BooleanField(default=False)
     due = models.IntegerField()

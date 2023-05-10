@@ -13,17 +13,30 @@ def reminder_check():
         time.sleep(10)
         for reminder in Reminder.objects.all():
             if reminder.due < datetime.now().timestamp():
-                if reminder.method in ["discord", "both"]:
+                if (
+                    reminder.method in ["discord", "both"]
+                    and not reminder.discord_fulfilled
+                ):
                     discord_user = get_discord_user(reminder.author)
                     if discord_user:
-                        url = (os.environ.get("DISCORD_BOT_URL")
-                               + "?user="
-                               + discord_user["id"]
-                               + "&name="
-                               + reminder.author.name.split(" ")[0]
-                               + "&title="
-                               + reminder.title
-                               + "&description=No Description")
+                        url = (
+                            os.environ.get("DISCORD_BOT_URL")
+                            + "?user="
+                            + discord_user["id"]
+                            + "&name="
+                            + reminder.author.name.split(" ")[0]
+                            + "&title="
+                            + reminder.title
+                            + "&description=No Description"
+                        )
                         requests.get(url)
-                print("Reminder: " + reminder.title + " has been fulfilled.")
-                reminder.delete()
+                        reminder.discord_fulfilled = True
+                        reminder.save()
+                        print(
+                            "Discord Reminder: "
+                            + reminder.title
+                            + " has been fulfilled."
+                        )
+
+                if reminder.method == "discord":
+                    reminder.delete()
