@@ -1,11 +1,8 @@
 import requests
 import rest_framework_simplejwt.exceptions
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
-from rest_framework_simplejwt.backends import TokenBackend
-
-from coolbox_backend import settings
+from django.db import models
 
 
 # Create your models here.

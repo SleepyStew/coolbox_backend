@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "quicknotes",
     "reminders",
     "discordoauth",
+    "stats",
 ]
 
 MIDDLEWARE = [

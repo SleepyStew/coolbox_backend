@@ -22,6 +22,7 @@ from discordoauth.views import DiscordOAuthView
 from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView
 from schoolboxauth.views import UserView, UsersView
+from stats.views import RunningView
 
 urlpatterns = [
     path("admin", admin.site.urls),
@@ -31,4 +32,5 @@ urlpatterns = [
     path("discord", DiscordOAuthView.as_view(), name="discord"),
     path("user", UserView.as_view(), name="user"),
     path("users", UsersView.as_view(), name="users"),
+    path("stats/running", RunningView.as_view(), name="running"),
 ]

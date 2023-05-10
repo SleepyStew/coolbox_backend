@@ -6,7 +6,6 @@ from rest_framework.views import APIView
 from quicknotes.models import QuickNote
 from quicknotes.serializers import QuickNoteSerializer
 from schoolboxauth.backend import token_auth
-from schoolboxauth.models import User
 
 
 # Create your views here.

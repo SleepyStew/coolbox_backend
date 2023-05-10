@@ -41,6 +41,7 @@ def refresh_token(oauth):
 
 def refresh_tokens():
     from discordoauth.models import DiscordOAuth
+
     while True:
         time.sleep(60)
         for discordoauth in DiscordOAuth.objects.all():

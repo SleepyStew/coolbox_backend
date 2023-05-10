@@ -1,12 +1,11 @@
-from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from rest_framework import status
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from reminders.models import Reminder
-from schoolboxauth.backend import token_auth
 from reminders.serializers import ReminderSerializer
+from schoolboxauth.backend import token_auth
 
 
 # Create your views here.
@@ -41,7 +40,7 @@ class RemindersView(APIView):
 
             reminder.delete()
             return Response({}, status=status.HTTP_200_OK)
-        
+
         return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     @method_decorator(token_auth)
@@ -57,7 +56,7 @@ class RemindersView(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            
+
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({}, status=status.HTTP_404_NOT_FOUND)
