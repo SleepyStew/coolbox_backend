@@ -41,8 +41,8 @@ class RemindersView(APIView):
 
             reminder.delete()
             return Response({}, status=status.HTTP_200_OK)
-        else:
-            return Response({}, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     @method_decorator(token_auth)
     def patch(self, request):
@@ -57,6 +57,7 @@ class RemindersView(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
+            
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
-        else:
-            return Response({}, status=status.HTTP_404_NOT_FOUND)
+        return Response({}, status=status.HTTP_404_NOT_FOUND)

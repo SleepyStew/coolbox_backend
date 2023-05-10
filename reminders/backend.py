@@ -12,7 +12,7 @@ def reminder_check():
     while True:
         time.sleep(10)
         for reminder in Reminder.objects.all():
-            if reminder.due < datetime.now().timestamp():
+            if reminder.due / 1000 < datetime.now().timestamp():
                 if (
                     reminder.method in ["discord", "both"]
                     and not reminder.discord_fulfilled
