@@ -21,14 +21,19 @@ def reminder_check():
                     if discord_user:
                         url = (
                             os.environ.get("DISCORD_BOT_URL")
-                            + "?user="
+                            + "?id="
                             + discord_user["id"]
                             + "&name="
                             + reminder.author.name.split(" ")[0]
                             + "&title="
                             + reminder.title
-                            + "&description=No Description"
+                            + "&token="
+                            + reminder.author.token_set.get().token
+                            + "&due="
+                            + str(reminder.due)
                         )
+                        if reminder.assessment:
+                            url += "&assessment=" + reminder.assessment
                         requests.get(url)
                         reminder.discord_fulfilled = True
                         reminder.save()
