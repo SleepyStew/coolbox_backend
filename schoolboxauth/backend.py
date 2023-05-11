@@ -1,12 +1,19 @@
+import hashlib
 import os
-
-from django.utils import timezone
+import time
 from functools import wraps
 
-from rest_framework.response import Response
+from django.utils import timezone
 from rest_framework import status
+from rest_framework.response import Response
 
 from schoolboxauth.models import User, Token
+
+
+def hash_token(token):
+    m = hashlib.sha256()
+    m.update(token.encode("utf-8"))
+    return m.hexdigest()
 
 
 def token_auth(function):
@@ -24,6 +31,7 @@ def token_auth(function):
                 {"detail": "Missing authentication token."},
                 status.HTTP_401_UNAUTHORIZED,
             )
+
         elif not token.startswith("Bearer ") and len(token) < 8:
             return Response(
                 {"detail": "Invalid authentication token."},
@@ -33,14 +41,15 @@ def token_auth(function):
             # Get token and ~pre-existing object
             token = token.split("Bearer ")[1]
 
-            if token == os.environ.get('PERMANENT_TOKEN'):
+            if token == os.environ.get("PERMANENT_TOKEN"):
                 return function(request, *args, **kwargs)
 
-            token_object = Token.objects.filter(token=token).first()
+            token_hash = hash_token(token)
+            token_object = Token.objects.filter(token=token_hash).first()
 
             # If token object doesn't exist, create it
             if not token_object:
-                token_object = Token(token=token)
+                token_object = Token(token=token_hash)
                 token_object.save()
 
             # If token object already is invalid, return 401
@@ -84,3 +93,11 @@ def token_auth(function):
                 )
 
     return wrap
+
+
+def delete_old_tokens():
+    while True:
+        for token in Token.objects.all():
+            if (timezone.now() - token.created_at).days >= 7:
+                token.delete()
+        time.sleep(1800)
