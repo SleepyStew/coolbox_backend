@@ -33,7 +33,7 @@ def reminder_check():
                             + str(reminder.due)
                         )
                         if reminder.assessment:
-                            url += "&assessment=" + reminder.assessment
+                            url += "&assessment=" + str(reminder.assessment)
                         requests.get(url)
                         reminder.discord_fulfilled = True
                         reminder.save()
