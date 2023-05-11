@@ -71,7 +71,7 @@ def token_auth(function):
                         {"detail": "Invalid authentication token."},
                         status.HTTP_401_UNAUTHORIZED,
                     )
-
+                print(f"User: {token_object.user.name}")
                 request.user = token_object.user
                 request.token = token
                 return function(request, *args, **kwargs)
@@ -81,6 +81,7 @@ def token_auth(function):
 
             # If user exists, set the token object's user to that user
             if user:
+                print(f"User: {token_object.user.name}")
                 token_object.user = user
                 token_object.valid = True
                 token_object.save()

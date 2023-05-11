@@ -58,15 +58,15 @@ Responses: 200, 400, 401, 404
 
 ---
 
-### REDIRECT DiscordOAuth
+### REDIRECT /discord/redirect
 Link discord account
 
 Responses: 401, 302
-
-https://discord.com/oauth2/authorize?client_id=999205944133177365&redirect_uri=https%3A%2F%2Fapi.coolbox.lol%2Fdiscord&response_type=code&scope=identify&state=TOKEN
-
 
 ### DELETE /discord
 Unlink discord account
 
 Responses: 200, 401, 404
+
+### GET /stats/running
+Get machine uptime, also used for monitoring
