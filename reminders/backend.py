@@ -28,7 +28,7 @@ def reminder_check():
                             + "&title="
                             + reminder.title
                             + "&token="
-                            + reminder.author.token_set.get().token
+                            + reminder.author.token_set.latest()
                             + "&due="
                             + str(reminder.due)
                         )
