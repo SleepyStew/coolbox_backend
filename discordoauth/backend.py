@@ -30,7 +30,6 @@ def refresh_token(oauth):
         "https://discordapp.com/api/oauth2/token", data=data, headers=headers
     )
     if response.status_code == 200:
-        print(response.json())
         oauth.access_token = response.json()["access_token"]
         oauth.expires = time.time() + response.json()["expires_in"] - 600
         oauth.refresh_token = response.json()["refresh_token"]

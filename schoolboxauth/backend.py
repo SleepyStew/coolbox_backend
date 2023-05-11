@@ -71,6 +71,7 @@ def token_auth(function):
                     )
 
                 request.user = token_object.user
+                request.token = token
                 return function(request, *args, **kwargs)
 
             # Otherwise, try to get the user from the token
@@ -82,6 +83,7 @@ def token_auth(function):
                 token_object.valid = True
                 token_object.save()
                 request.user = user
+                request.token = token
                 return function(request, *args, **kwargs)
             # Otherwise, return 401 and set token object to invalid
             else:
