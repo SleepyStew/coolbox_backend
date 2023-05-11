@@ -49,8 +49,10 @@ def token_auth(function):
 
             # If token object doesn't exist, create it
             if not token_object:
-                token_object = Token(token=token_hash)
-                token_object.save()
+                token_object = Token.objects.filter(token=token).first()
+                if not token_object:
+                    token_object = Token(token=token_hash)
+                    token_object.save()
 
             # If token object already is invalid, return 401
             if token_object.valid is False:
