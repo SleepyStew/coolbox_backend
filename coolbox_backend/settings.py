@@ -30,7 +30,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["api.coolbox.lol", "localhost", "schoolbox.donvale.vic.edu.au"]
+ALLOWED_HOSTS = ["api.coolbox.lol", "localhost", "schoolbox.donvale.vic.edu.au", "mkkkjlaajcmaflpaaodpdnindfecdemo"]
 
 # Application definition
 
@@ -135,6 +135,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://coolbox.lol",
     "https://schoolbox.donvale.vic.edu.au",
+    "chrome-extension://mkkkjlaajcmaflpaaodpdnindfecdemo",
 ]
 
 REST_FRAMEWORK = {
