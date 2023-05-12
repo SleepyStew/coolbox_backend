@@ -38,7 +38,7 @@ class QuickNotesView(APIView):
             # If there is an error, restore the previous notes
             for quick_note in current_notes:
                 quick_note.save()
-            return Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         new_notes = QuickNote.objects.filter(author=request.user)
         new_serializer = QuickNoteSerializer(new_notes, many=True)

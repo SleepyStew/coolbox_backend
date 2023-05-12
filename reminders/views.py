@@ -33,34 +33,34 @@ class RemindersView(APIView):
     @method_decorator(token_auth)
     def delete(self, request):
         if not request.data.get("id"):
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         reminder = Reminder.objects.filter(id=request.data.get("id")).first()
         if reminder:
             if not reminder.author == request.user:
-                return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
 
             reminder.delete()
-            return Response({}, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
 
-        return Response({}, status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     @method_decorator(token_auth)
     def patch(self, request):
         if not request.data.get("id"):
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         reminder = Reminder.objects.filter(id=request.data.get("id")).first()
         if reminder:
             if not reminder.author == request.user:
-                return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
 
             serializer = ReminderSerializer(reminder, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({}, status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class RemindersRescheduleView(APIView):
@@ -72,12 +72,12 @@ class RemindersRescheduleView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if not request.data.get("user"):
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         user = User.objects.filter(id=request.data.get("user")).first()
 
         if not user:
-            return Response({}, status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer.save(author=user)
 
