@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 
 from reminders.models import Reminder
 from reminders.serializers import ReminderSerializer
-from schoolboxauth.backend import token_auth
+from schoolboxauth.backend import token_auth, internal_auth
+from schoolboxauth.models import User
 
 
 # Create your views here.
@@ -60,3 +61,24 @@ class RemindersView(APIView):
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({}, status=status.HTTP_404_NOT_FOUND)
+
+
+class RemindersRescheduleView(APIView):
+    @method_decorator(internal_auth)
+    def post(self, request):
+        serializer = ReminderSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        if not request.data.get("user"):
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = User.objects.filter(id=request.data.get("user")).first()
+
+        if not user:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer.save(author=user)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -76,6 +76,9 @@ class DiscordOAuthView(APIView):
 class DiscordOAuthRedirectView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
+        if not request.token:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         client_id = "999205944133177365"
         scope = "identify%20guilds.join"
 

@@ -27,8 +27,8 @@ def reminder_check():
                             + reminder.author.name.split(" ")[0]
                             + "&title="
                             + reminder.title
-                            + "&token="
-                            + reminder.author.token_set.latest("created_at").token
+                            + "&user="
+                            + reminder.author.id
                             + "&due="
                             + str(reminder.due)
                         )

@@ -20,7 +20,7 @@ from django.urls import path
 from coolbox_backend.views import IndexView
 from discordoauth.views import DiscordOAuthView, DiscordOAuthRedirectView
 from quicknotes.views import QuickNotesView
-from reminders.views import RemindersView
+from reminders.views import RemindersView, RemindersRescheduleView
 from schoolboxauth.views import UserView, UsersView
 from stats.views import RunningView
 
@@ -29,6 +29,11 @@ urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path("quick-notes", QuickNotesView.as_view(), name="quick_notes"),
     path("reminders", RemindersView.as_view(), name="reminders"),
+    path(
+        "reminders/reschedule",
+        RemindersRescheduleView.as_view(),
+        name="reminders_reschedule",
+    ),
     path("discord", DiscordOAuthView.as_view(), name="discord"),
     path(
         "discord/redirect", DiscordOAuthRedirectView.as_view(), name="discord_redirect"
