@@ -68,5 +68,7 @@ Unlink discord account
 
 Responses: 200, 401, 404
 
+---
+
 ### GET /stats/running
 Get machine uptime, also used for monitoring
