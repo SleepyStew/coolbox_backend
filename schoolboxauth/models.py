@@ -15,7 +15,7 @@ class Token(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.CharField(max_length=64, primary_key=True, unique=True)
+    id = models.CharField(max_length=64, primary_key=True)
     name = models.CharField(max_length=128)
     date_joined = models.DateTimeField(auto_now_add=True)
     is_superuser = models.BooleanField(default=False)
