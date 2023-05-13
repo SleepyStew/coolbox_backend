@@ -27,18 +27,23 @@ class QuickNotesView(APIView):
         current_notes = QuickNote.objects.filter(author=request.user)
 
         try:
-            for quick_note in QuickNote.objects.filter(author=request.user):
-                quick_note.delete()
+            QuickNote.objects.filter(author=request.user).delete()
 
             for index, quick_note in enumerate(request.data):
                 serializer = QuickNoteSerializer(data=quick_note)
                 if serializer.is_valid():
                     serializer.save(author=request.user, display_id=index)
+
+        # If there is an error, restore the previous notes
         except:
-            # If there is an error, restore the previous notes
+            QuickNote.objects.filter(author=request.user).delete()
+
             for quick_note in current_notes:
                 quick_note.save()
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response(
+                {"restored": True}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
         new_notes = QuickNote.objects.filter(author=request.user)
         new_serializer = QuickNoteSerializer(new_notes, many=True)
