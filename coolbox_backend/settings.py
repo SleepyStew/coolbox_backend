@@ -130,12 +130,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# allow all
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://coolbox.lol",
-    "https://schoolbox.donvale.vic.edu.au",
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",)
