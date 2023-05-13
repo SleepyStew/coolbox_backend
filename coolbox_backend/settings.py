@@ -135,8 +135,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://coolbox.lol",
     "https://schoolbox.donvale.vic.edu.au",
-    "chrome-extension://*",
-    "moz-extension://*",
 ]
 
 REST_FRAMEWORK = {
