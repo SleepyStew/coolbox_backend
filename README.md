@@ -72,3 +72,11 @@ Responses: 200, 401, 404
 
 ### GET /stats/running
 Get machine uptime, also used for monitoring
+
+Responses: 200
+
+
+### GET /stats/user_count
+Get user count
+
+Responses: 200
