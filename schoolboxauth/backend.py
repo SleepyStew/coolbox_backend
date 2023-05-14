@@ -82,10 +82,11 @@ def verify_token(function, request, internal=False, *args, **kwargs):
 
             # If user exists, set the token object's user to that user
             # And token still doesn't exist
-            if user and not token_object:
+            if user:
                 print(f"User: {user.name}")
-                token_object = Token(token=token_hash, user=user, valid=True)
-                token_object.save()
+                if not token_object:
+                    token_object = Token(token=token_hash, user=user, valid=True)
+                    token_object.save()
                 request.user = user
                 request.token = token
                 return function(request, *args, **kwargs)
