@@ -51,53 +51,52 @@ def verify_token(function, request, internal=False, *args, **kwargs):
         token_hash = hash_token(token)
         token_object = Token.objects.filter(token=token_hash).first()
 
-        # If token object doesn't exist, create it
-        if not token_object:
-            token_object = Token(token=token_hash)
-            token_object.save()
+        if token_object:
+            # If token object already is invalid, return 401
+            if token_object.valid is False:
+                return Response(
+                    {"detail": "Invalid authentication token."},
+                    status.HTTP_401_UNAUTHORIZED,
+                )
 
-        # If token object already is invalid, return 401
-        if token_object.valid is False:
-            return Response(
-                {"detail": "Invalid authentication token."},
-                status.HTTP_401_UNAUTHORIZED,
-            )
+            # If token object has a user, use that user
+            if token_object.user:
+                # If token is older than 24 hours, invalidate it
+                if (timezone.now() - token_object.created_at).days >= 1:
+                    token_object.valid = False
+                    token_object.save()
+                    return Response(
+                        {"detail": "Invalid authentication token."},
+                        status.HTTP_401_UNAUTHORIZED,
+                    )
+                print(f"User: {token_object.user.name}")
+                request.user = token_object.user
+                request.token = token
+                return function(request, *args, **kwargs)
 
-        # If token object has a user, use that user
-        if token_object.user:
-            # If token is older than 3 days, invalidate it
-            if (timezone.now() - token_object.created_at).days >= 2:
-                token_object.valid = False
+        else:
+            # Otherwise, try to get the user from the token
+            user = User.from_token(token)
+
+            token_object = Token.objects.filter(token=token_hash).first()
+
+            # If user exists, set the token object's user to that user
+            # And token still doesn't exist
+            if user and not token_object:
+                print(f"User: {user.name}")
+                token_object = Token(token=token_hash, user=user, valid=True)
+                token_object.save()
+                request.user = user
+                request.token = token
+                return function(request, *args, **kwargs)
+            # Otherwise, return 401 and set token object to invalid
+            else:
+                token_object = Token(token=token_hash, valid=False)
                 token_object.save()
                 return Response(
                     {"detail": "Invalid authentication token."},
                     status.HTTP_401_UNAUTHORIZED,
                 )
-            print(f"User: {token_object.user.name}")
-            request.user = token_object.user
-            request.token = token
-            return function(request, *args, **kwargs)
-
-        # Otherwise, try to get the user from the token
-        user = User.from_token(token)
-
-        # If user exists, set the token object's user to that user
-        if user:
-            print(f"User: {user.name}")
-            token_object.user = user
-            token_object.valid = True
-            token_object.save()
-            request.user = user
-            request.token = token
-            return function(request, *args, **kwargs)
-        # Otherwise, return 401 and set token object to invalid
-        else:
-            token_object.valid = False
-            token_object.save()
-            return Response(
-                {"detail": "Invalid authentication token."},
-                status.HTTP_401_UNAUTHORIZED,
-            )
 
 
 def token_auth(function):

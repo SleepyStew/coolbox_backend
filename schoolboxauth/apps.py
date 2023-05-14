@@ -10,6 +10,7 @@ class AuthConfig(AppConfig):
 
     def ready(self):
         from schoolboxauth.backend import delete_old_tokens
+        from schoolboxauth.models import Token
 
         if os.environ.get("RUN_MAIN"):
             thread = threading.Thread(target=delete_old_tokens)
