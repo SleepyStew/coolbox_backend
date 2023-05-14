@@ -25,7 +25,7 @@ from schoolboxauth.views import UserView, UsersView
 from stats.views import RunningView, UserCountView
 
 urlpatterns = [
-    path("admin", admin.site.urls),
+    # path("admin", admin.site.urls),
     path("", IndexView.as_view(), name="index"),
     path("quick-notes", QuickNotesView.as_view(), name="quick_notes"),
     path("reminders", RemindersView.as_view(), name="reminders"),
