@@ -6,7 +6,4 @@ from schoolboxauth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
-            "name",
-            "id",
-        )
+        fields = ("name", "id", "year")

@@ -5,6 +5,7 @@ import rest_framework_simplejwt.exceptions
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+import re
 
 
 # Create your models here.
@@ -19,8 +20,8 @@ class Token(models.Model):
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.CharField(max_length=64, primary_key=True)
     name = models.CharField(max_length=128, unique=True)
-    year = models.CharField(max_length=2, null=True)
-    role = models.CharField(max_length=64, default="student")
+    year = models.IntegerField(null=True)
+    role = models.CharField(max_length=64, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -64,19 +65,21 @@ class User(AbstractBaseUser, PermissionsMixin):
                     role=role,
                 )
                 if role == "student":
-                    user.year = (
-                        response.text.split('schoolboxUser.year           = "')[
-                            1
-                        ].split('"')[0],
+                    user.year = int(
+                        response.text.split('schoolboxUser.year           = "')[1]
+                        .split('"')[0]
+                        .encode("utf-8")
                     )
                 user.save()
             else:
                 user.name = response.text.split(',"fullName":"')[1].split('"')[0]
                 user.role = role
                 if role == "student":
-                    user.year = response.text.split('schoolboxUser.year           = "')[
-                        1
-                    ].split('"')[0]
+                    user.year = int(
+                        response.text.split('schoolboxUser.year           = "')[1]
+                        .split('"')[0]
+                        .encode("utf-8")
+                    )
                 user.save()
 
             return user

@@ -12,10 +12,11 @@ from schoolboxauth.serializers import UserSerializer
 class UserView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
+        serializer = UserSerializer(request.user)
+
         return Response(
             {
-                "name": request.user.name,
-                "id": request.user.id,
+                **serializer.data,
                 "discord": {
                     "linked": request.user.discordoauth_set.all().first() is not None,
                     "info": get_discord_user(request.user),
