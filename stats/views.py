@@ -33,5 +33,5 @@ class MessageView(APIView):
     def get(self, request):
         with open(os.path.join(BASE_DIR, "status"), "r") as status_file:
             content = status_file.read().strip()
-            message = content if content else None
+            message = content.replace("\n", "<br>") if content else None
         return Response({"message": message}, status=status.HTTP_200_OK)
