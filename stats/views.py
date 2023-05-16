@@ -1,7 +1,13 @@
+import os
+
 import uptime
+from django.utils.decorators import method_decorator
+from dotenv import load_dotenv
 from rest_framework import status
 from rest_framework.views import APIView, Response
 
+from coolbox_backend.settings import BASE_DIR
+from schoolboxauth.backend import token_auth
 from schoolboxauth.models import User
 
 
@@ -20,3 +26,13 @@ class UserCountView(APIView):
     def get(self, request):
         user_count = User.objects.count()
         return Response({"count": user_count}, status=status.HTTP_200_OK)
+
+
+class MessageView(APIView):
+    @method_decorator(token_auth)
+    def get(self, request):
+        with open(os.path.join(BASE_DIR, "status"), "r") as status_file:
+            os.environ["STATUS_MESSAGE"] = status_file.read()
+        return Response(
+            {"message": os.environ.get("STATUS_MESSAGE")}, status=status.HTTP_200_OK
+        )
