@@ -80,3 +80,9 @@ Responses: 200
 Get user count
 
 Responses: 200
+
+
+### GET /stats/message
+Get status message
+
+Responses: 200, 401
