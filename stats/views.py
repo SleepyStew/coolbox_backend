@@ -32,7 +32,6 @@ class MessageView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
         with open(os.path.join(BASE_DIR, "status"), "r") as status_file:
-            os.environ["STATUS_MESSAGE"] = status_file.read()
-        return Response(
-            {"message": os.environ.get("STATUS_MESSAGE")}, status=status.HTTP_200_OK
-        )
+            content = status_file.read().strip()
+            message = content if content else None
+        return Response({"message": message}, status=status.HTTP_200_OK)
