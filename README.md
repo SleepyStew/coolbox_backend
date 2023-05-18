@@ -61,7 +61,7 @@ Responses: 200, 400, 401, 404
 ### REDIRECT /discord/redirect
 Link discord account
 
-Responses: 401, 302
+Responses: 302, 401
 
 ### DELETE /discord
 Unlink discord account
