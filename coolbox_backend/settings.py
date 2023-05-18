@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "reminders",
     "discordoauth",
     "stats",
+    "subjects",
 ]
 
 MIDDLEWARE = [

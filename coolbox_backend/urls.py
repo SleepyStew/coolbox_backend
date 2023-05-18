@@ -23,6 +23,7 @@ from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView, RemindersRescheduleView
 from schoolboxauth.views import UserView, UsersView
 from stats.views import RunningView, UserCountView, MessageView
+from subjects.views import SubjectView
 
 urlpatterns = [
     # path("admin", admin.site.urls),
@@ -43,4 +44,5 @@ urlpatterns = [
     path("stats/running", RunningView.as_view(), name="running"),
     path("stats/user_count", UserCountView.as_view(), name="user_count"),
     path("stats/message", MessageView.as_view(), name="status_message"),
+    path("subject", SubjectView.as_view(), name="subject"),
 ]
