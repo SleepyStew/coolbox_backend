@@ -86,3 +86,21 @@ Responses: 200
 Get status message
 
 Responses: 200, 401
+
+---
+
+### GET /subjects
+Get subject names
+
+Fields: List of objects(*name)
+
+Responses: 200, 400, 401
+
+
+### POST /subjects
+Add subjects to database
+
+Fields: List of objects(*name)
+
+Responses: 200, 400, 401
+
