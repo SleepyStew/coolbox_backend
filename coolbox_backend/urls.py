@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 
 from coolbox_backend.views import IndexView
 from discordoauth.views import DiscordOAuthView, DiscordOAuthRedirectView
@@ -45,4 +46,5 @@ urlpatterns = [
     path("stats/user_count", UserCountView.as_view(), name="user_count"),
     path("stats/message", MessageView.as_view(), name="status_message"),
     path("subjects", SubjectView.as_view(), name="subjects"),
+    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots"),
 ]
