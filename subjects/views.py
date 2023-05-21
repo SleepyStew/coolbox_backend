@@ -31,9 +31,9 @@ class SubjectView(APIView):
     @method_decorator(token_auth)
     def post(self, request):
         # serialize all data, add if it doesn't exist
-        serializer = ListSubjectSerializer(data=request.data, many=True)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer_many = ListSubjectSerializer(data=request.data, many=True)
+        if not serializer_many.is_valid():
+            return Response(serializer_many.errors, status=status.HTTP_400_BAD_REQUEST)
 
         for subject in request.data:
             serializer = ListSubjectSerializer(data=subject)
@@ -41,4 +41,4 @@ class SubjectView(APIView):
                 if not Subject.objects.filter(name=subject["name"]).exists():
                     serializer.save()
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer_many.data, status=status.HTTP_200_OK)
