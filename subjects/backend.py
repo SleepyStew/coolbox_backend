@@ -13,4 +13,4 @@ def update_subjects():
                     subject.pretty = subject_pretty[1]
                     subject.save()
                     break
-        time.sleep(10)
+        time.sleep(600)
