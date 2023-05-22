@@ -43,7 +43,9 @@ class SubjectView(APIView):
             if serializer.is_valid():
                 if not subject_object:
                     serializer.save()
-                    subject_objects.append(Subject.objects.filter(name=subject["name"]).first())
+                    subject_objects.append(
+                        Subject.objects.filter(name=subject["name"]).first()
+                    )
                 else:
                     subject_objects.append(subject_object)
 

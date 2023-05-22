@@ -22,7 +22,7 @@ from coolbox_backend.views import IndexView
 from discordoauth.views import DiscordOAuthView, DiscordOAuthRedirectView
 from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView, RemindersRescheduleView
-from schoolboxauth.views import UserView, UsersView
+from schoolboxauth.views import UserView
 from stats.views import RunningView, UserCountView, MessageView
 from subjects.views import SubjectView
 
@@ -41,10 +41,13 @@ urlpatterns = [
         "discord/redirect", DiscordOAuthRedirectView.as_view(), name="discord_redirect"
     ),
     path("user", UserView.as_view(), name="user"),
-    path("users", UsersView.as_view(), name="users"),
     path("stats/running", RunningView.as_view(), name="running"),
     path("stats/user_count", UserCountView.as_view(), name="user_count"),
     path("stats/message", MessageView.as_view(), name="status_message"),
     path("subjects", SubjectView.as_view(), name="subjects"),
-    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots"),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+        name="robots",
+    ),
 ]

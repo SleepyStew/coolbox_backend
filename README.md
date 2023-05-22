@@ -8,11 +8,6 @@ Returns user information
 
 Responses: 200, 401
 
-### GET /users
-Returns general information of all users
-
-Responses: 200, 401
-
 ---
 
 ### GET /quick-notes
