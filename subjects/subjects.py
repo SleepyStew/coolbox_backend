@@ -59,5 +59,10 @@ subjects_pretty = [
     ["HG", "Homegroup"],
     ["PrivStud", "Private Study"],
     ["VETAnim", "Animals & Learning"],
+    ["Farm", "Farm"],
+    ["Acc", "Accounting"],
+    ["VSV", "VSV"],  # What is this?
+    ["Beyo", "Beyond the Pages"],
+    ["FM", "Foundation Maths"],
 ]
 subjects_pretty.reverse()
