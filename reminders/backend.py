@@ -1,6 +1,7 @@
 import os
 import time
 from datetime import datetime
+from urllib.parse import quote
 
 import requests
 
@@ -23,7 +24,7 @@ def reminder_check():
                             + "&name="
                             + reminder.author.name.split(" ")[0]
                             + "&title="
-                            + reminder.title
+                            + quote(reminder.title)
                             + "&user="
                             + reminder.author.id
                             + "&due="
