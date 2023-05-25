@@ -12,22 +12,6 @@ from subjects.serializers import ListSubjectSerializer, RetrieveSubjectSerialize
 
 
 class SubjectView(APIView):
-    # @method_decorator(token_auth)
-    # def get(self, request):
-    #     serializer = ListSubjectSerializer(data=request.data, many=True)
-    #     if not serializer.is_valid():
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #
-    #     subject_objects = []
-    #
-    #     for subject in request.data:
-    #         subject_object = Subject.objects.filter(name=subject["name"]).first()
-    #         if subject_object:
-    #             subject_objects.append(subject_object)
-    #
-    #     serializer = RetrieveSubjectSerializer(subject_objects, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-
     @method_decorator(token_auth)
     def post(self, request):
         # serialize all data, add if it doesn't exist

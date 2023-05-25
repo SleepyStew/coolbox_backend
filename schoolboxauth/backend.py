@@ -10,6 +10,11 @@ from rest_framework.response import Response
 from schoolboxauth.models import User, Token
 
 
+ERROR_TOKEN_INVALID = "Invalid authentication token."
+ERROR_TOKEN_MISSING = "Missing authentication token."
+ERROR_NO_PERMISSION = "You do not have permission to perform this action."
+
+
 def hash_token(token):
     m = hashlib.sha256()
     m.update(token.encode("utf-8"))
@@ -26,13 +31,13 @@ def verify_token(function, request, internal=False, *args, **kwargs):
 
     if not token:
         return Response(
-            {"detail": "Missing authentication token."},
+            {"detail": ERROR_TOKEN_MISSING},
             status.HTTP_401_UNAUTHORIZED,
         )
 
     elif not token.startswith("Bearer ") and len(token) < 8:
         return Response(
-            {"detail": "Invalid authentication token."},
+            {"detail": ERROR_TOKEN_INVALID},
             status.HTTP_401_UNAUTHORIZED,
         )
     else:
@@ -44,7 +49,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
                 return function(request, *args, **kwargs)
 
             return Response(
-                {"detail": "No permission."},
+                {"detail": ERROR_NO_PERMISSION},
                 status.HTTP_403_FORBIDDEN,
             )
 
@@ -55,7 +60,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
             # If token object already is invalid, return 401
             if token_object.valid is False:
                 return Response(
-                    {"detail": "Invalid authentication token."},
+                    {"detail": ERROR_TOKEN_INVALID},
                     status.HTTP_401_UNAUTHORIZED,
                 )
 
@@ -66,7 +71,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
                     token_object.valid = False
                     token_object.save()
                     return Response(
-                        {"detail": "Invalid authentication token."},
+                        {"detail": ERROR_TOKEN_INVALID},
                         status.HTTP_401_UNAUTHORIZED,
                     )
                 print(f"User: {token_object.user.name}")
@@ -95,7 +100,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
                 token_object = Token(token=token_hash, valid=False)
                 token_object.save()
                 return Response(
-                    {"detail": "Invalid authentication token."},
+                    {"detail": ERROR_TOKEN_INVALID},
                     status.HTTP_401_UNAUTHORIZED,
                 )
 

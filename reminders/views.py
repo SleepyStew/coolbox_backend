@@ -36,7 +36,7 @@ class RemindersView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         reminder = Reminder.objects.filter(id=request.data.get("id")).first()
         if reminder:
-            if not reminder.author == request.user:
+            if reminder.author != request.user:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
 
             reminder.delete()
@@ -50,7 +50,7 @@ class RemindersView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         reminder = Reminder.objects.filter(id=request.data.get("id")).first()
         if reminder:
-            if not reminder.author == request.user:
+            if reminder.author != request.user:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
 
             serializer = ReminderSerializer(reminder, data=request.data, partial=True)

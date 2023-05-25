@@ -60,7 +60,7 @@ class DiscordOAuthView(APIView):
                     "authorization": f"Bot {os.environ.get('BOT_TOKEN')}",
                 }
                 url = f"https://discord.com/api/guilds/999205764117835796/members/{discord_user['id']}"
-                response = requests.put(url, json=data, headers=headers)
+                requests.put(url, json=data, headers=headers)
 
         return redirect("https://schoolbox.donvale.vic.edu.au/")
 

@@ -13,30 +13,35 @@ def reminder_check():
     while True:
         time.sleep(10)
         for reminder in Reminder.objects.all():
-            if reminder.due / 1000 < datetime.now().timestamp():
-                if reminder.method in ["discord", "both"]:
-                    discord_user = get_discord_user(reminder.author)
-                    if discord_user:
-                        url = (
-                            os.environ.get("DISCORD_BOT_URL")
-                            + "?id="
-                            + discord_user["id"]
-                            + "&name="
-                            + reminder.author.name.split(" ")[0]
-                            + "&title="
-                            + quote(reminder.title)
-                            + "&user="
-                            + reminder.author.id
-                            + "&due="
-                            + str(reminder.due)
-                        )
-                        if reminder.assessment:
-                            url += "&assessment=" + str(reminder.assessment)
-                        requests.get(url)
-                        print(
-                            "Discord Reminder: "
-                            + reminder.title
-                            + " has been fulfilled."
-                        )
+            if reminder.due / 1000 > datetime.now().timestamp():
+                continue
+            if reminder.method not in ["discord", "both"]:
+                continue
 
-                reminder.delete()
+            discord_user = get_discord_user(reminder.author)
+
+            if not discord_user:
+                continue
+
+            url = (
+                os.environ.get("DISCORD_BOT_URL")
+                + "?id="
+                + discord_user["id"]
+                + "&name="
+                + reminder.author.name.split(" ")[0]
+                + "&title="
+                + quote(reminder.title)
+                + "&user="
+                + reminder.author.id
+                + "&due="
+                + str(reminder.due)
+            )
+
+            if reminder.assessment:
+                url += "&assessment=" + str(reminder.assessment)
+
+            requests.get(url)
+
+            print("Discord Reminder: " + reminder.title + " has been fulfilled.")
+
+            reminder.delete()
