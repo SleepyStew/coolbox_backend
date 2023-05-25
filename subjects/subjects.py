@@ -55,7 +55,7 @@ subjects_pretty = [
     ["MInv", "Maths Investigation"],
     ["ComL", "ComLife"],
     ["Elec", "Electronics"],
-    ["OuEd", "Outdoor Ed"],
+    ["OuEd", "Outdoor Education"],
     ["HG", "Homegroup"],
     ["PrivStud", "Private Study"],
     ["VETAnim", "Animals & Learning"],
