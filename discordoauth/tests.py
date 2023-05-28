@@ -11,10 +11,12 @@ class DiscordViewTestCase(APITestCase):
 
     def test_discord_view(self):
 
-        response = self.client.delete("/discord")
+        discord_endpoint = "/discord"
+
+        response = self.client.delete(discord_endpoint)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-        response = self.client.get("/discord")
+        response = self.client.get(discord_endpoint)
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
 
@@ -26,5 +28,5 @@ class DiscordViewTestCase(APITestCase):
         )
         discordoauth_object.save()
 
-        response = self.client.delete("/discord")
+        response = self.client.delete(discord_endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
