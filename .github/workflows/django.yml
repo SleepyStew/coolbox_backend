@@ -32,6 +32,10 @@ jobs:
       run: |
         python manage.py makemigrations
         python manage.py migrate
+    - uses: "finnp/create-file-action@master"
+      env:
+        FILE_NAME: "status"
+        FILE_DATA: "Test Status"
     - name: Run Tests
       run: |
         python manage.py test
