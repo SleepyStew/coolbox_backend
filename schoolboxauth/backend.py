@@ -9,7 +9,6 @@ from rest_framework.response import Response
 
 from schoolboxauth.models import User, Token
 
-
 ERROR_TOKEN_INVALID = "Invalid authentication token."
 ERROR_TOKEN_MISSING = "Missing authentication token."
 ERROR_NO_PERMISSION = "You do not have permission to perform this action."
@@ -74,7 +73,8 @@ def verify_token(function, request, internal=False, *args, **kwargs):
                         {"detail": ERROR_TOKEN_INVALID},
                         status.HTTP_401_UNAUTHORIZED,
                     )
-                print(f"User: {token_object.user.name}")
+                if token_object.user.name != "Test User":
+                    print(f"User: {token_object.user.name}")
                 request.user = token_object.user
                 request.token = token
                 return function(request, *args, **kwargs)
@@ -88,7 +88,8 @@ def verify_token(function, request, internal=False, *args, **kwargs):
             # If user exists, set the token object's user to that user
             # And token still doesn't exist
             if user:
-                print(f"User: {user.name}")
+                if user.name != "Test User":
+                    print(f"User: {user.name}")
                 if not token_object:
                     token_object = Token(token=token_hash, user=user, valid=True)
                     token_object.save()
