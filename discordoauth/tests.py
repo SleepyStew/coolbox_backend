@@ -10,7 +10,6 @@ class DiscordViewTestCase(APITestCase):
         self.client = authenticated_test_client()
 
     def test_discord_view(self):
-
         discord_endpoint = "/discord"
 
         response = self.client.delete(discord_endpoint)

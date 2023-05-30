@@ -21,7 +21,9 @@ class QuickNoteViewTestCase(APITestCase):
             {"title": "Test QuickNote 2", "content": "This is a second test quicknote"},
         ]
 
-        response = self.client.put(quick_notes_endpoint, self.quicknote_data, format="json")
+        response = self.client.put(
+            quick_notes_endpoint, self.quicknote_data, format="json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), len(self.quicknote_data))

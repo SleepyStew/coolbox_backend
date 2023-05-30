@@ -52,7 +52,9 @@ class ReminderViewTestCase(APITestCase):
             "id": reminder_id,
         }
 
-        response = self.client.delete(reminders_endpoint, reminder_delete, format="json")
+        response = self.client.delete(
+            reminders_endpoint, reminder_delete, format="json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
