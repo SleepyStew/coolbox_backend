@@ -29,7 +29,7 @@ def rate_limit_key(group, request):
     if request.user.id == "1":
         return str(time.time_ns())
     else:
-        return "user"
+        return request.user.id
 
 
 # Global rate limit for all endpoints, per user
