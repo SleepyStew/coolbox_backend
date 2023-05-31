@@ -25,7 +25,6 @@ def hash_token(token):
 
 # Used to prevent tests from being rate limited
 def rate_limit_key(group, request):
-    print(request.user.id)
     if request.user.id == "1":
         return str(time.time_ns())
     else:
