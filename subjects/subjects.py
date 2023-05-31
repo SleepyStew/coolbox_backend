@@ -1,10 +1,12 @@
+# Priority ascending (Lowest has highest priority)
 subjects_pretty = [
     ["Art", "Art"],
     ["Biol", "Biology"],
     ["CELL", "CELL"],
     ["Chem", "Chemistry"],
     ["Comm", "Commerce"],
-    ["DT", "DigiTech"],
+    ["DT", "Design Technology"],
+    ["DigT", "Digital Technology"],
     ["Eng", "English"],
     ["Engi", "Engineering"],
     ["Fash", "Fashion"],
@@ -21,6 +23,7 @@ subjects_pretty = [
     ["Medi", "Media"],
     ["Musi", "Music"],
     ["Phys", "Physics"],
+    ["PDT", "Product Design"],
     ["SptL", "Sport & Lifestyle"],
     ["BM", "Business Management"],
     ["FL", "Faith & Life"],
