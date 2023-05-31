@@ -2,10 +2,9 @@ import json
 
 import requests
 import rest_framework_simplejwt.exceptions
-from django.contrib.auth.models import AbstractBaseUser, UserManager
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
-import re
 
 
 # Create your models here.
