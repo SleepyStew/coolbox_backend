@@ -10,8 +10,6 @@ from schoolboxauth.models import User
 
 
 # Create your views here.
-
-
 class RemindersView(APIView):
     @method_decorator(token_auth)
     def get(self, request):

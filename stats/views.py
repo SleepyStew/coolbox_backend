@@ -2,7 +2,7 @@ import os
 
 import uptime
 from django.utils.decorators import method_decorator
-from dotenv import load_dotenv
+from django_ratelimit.decorators import ratelimit
 from rest_framework import status
 from rest_framework.views import APIView, Response
 
@@ -15,6 +15,7 @@ from schoolboxauth.models import User
 
 
 class RunningView(APIView):
+    @method_decorator(ratelimit(key="ip", rate="5/3s"))
     def get(self, request):
         return Response(
             {"uptime": uptime.uptime()},
@@ -23,6 +24,7 @@ class RunningView(APIView):
 
 
 class UserCountView(APIView):
+    @method_decorator(ratelimit(key="ip", rate="5/3s"))
     def get(self, request):
         user_count = User.objects.count()
         return Response({"count": user_count}, status=status.HTTP_200_OK)

@@ -21,6 +21,9 @@ def hash_token(token):
     return m.hexdigest()
 
 
+from django_ratelimit.decorators import ratelimit
+
+
 def verify_token(function, request, internal=False, *args, **kwargs):
     token = request.META.get("HTTP_AUTHORIZATION")
 
@@ -109,6 +112,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
 
 def token_auth(function):
     @wraps(function)
+    @ratelimit(key="user", rate="9/5s")
     def wrap(request, *args, **kwargs):
         return verify_token(function, request, *args, **kwargs)
 
@@ -117,6 +121,7 @@ def token_auth(function):
 
 def internal_auth(function):
     @wraps(function)
+    @ratelimit(key="ip", rate="90/m")
     def wrap(request, *args, **kwargs):
         return verify_token(function, request, *args, **kwargs, internal=True)
 
