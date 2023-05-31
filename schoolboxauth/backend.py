@@ -126,13 +126,9 @@ def internal_auth(function):
 def delete_old_tokens():
     while True:
         for token in Token.objects.all():
-            if (timezone.now() - token.created_at).days >= 7:
+            if (timezone.now() - token.created_at).days >= 3:
                 token.delete()
         time.sleep(1800)
-
-
-def print_user(request):
-    print(request)
 
 
 class SchoolboxAuthentication(BaseBackend):
