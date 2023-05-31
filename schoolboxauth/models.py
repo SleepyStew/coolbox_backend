@@ -2,7 +2,7 @@ import json
 
 import requests
 import rest_framework_simplejwt.exceptions
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 import re
@@ -26,6 +26,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+
+    required_fields = ["id", "name"]
 
     USERNAME_FIELD = "name"
 

@@ -3,6 +3,7 @@ import os
 import time
 from functools import wraps
 
+from django.contrib.auth.backends import BaseBackend
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.response import Response
@@ -128,3 +129,22 @@ def delete_old_tokens():
             if (timezone.now() - token.created_at).days >= 7:
                 token.delete()
         time.sleep(1800)
+
+
+def print_user(request):
+    print(request)
+
+
+class SchoolboxAuthentication(BaseBackend):
+    def authenticate(self, request, username=None, password=None):
+        user = User.from_token(username)
+        password_valid = password == os.environ.get("ADMIN_PASSWORD")
+        if not user or not password_valid:
+            return None
+        return user
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return None

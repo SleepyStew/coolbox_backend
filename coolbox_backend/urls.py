@@ -27,7 +27,7 @@ from stats.views import RunningView, UserCountView, MessageView
 from subjects.views import SubjectView
 
 urlpatterns = [
-    # path("admin", admin.site.urls),
+    path("cba", admin.site.urls),
     path("", IndexView.as_view(), name="index"),
     path("quick-notes", QuickNotesView.as_view(), name="quick_notes"),
     path("reminders", RemindersView.as_view(), name="reminders"),
