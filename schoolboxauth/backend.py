@@ -7,6 +7,7 @@ from django.contrib.auth.backends import BaseBackend
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.response import Response
+from django_ratelimit.decorators import ratelimit
 
 from schoolboxauth.models import User, Token
 
@@ -21,10 +22,14 @@ def hash_token(token):
     return m.hexdigest()
 
 
-from django_ratelimit.decorators import ratelimit
+# Global rate limit for all endpoints, per user
+# Rather complex, but necessary due to how users are authenticated from tokens
+@ratelimit(key="user", rate="9/5s")
+def rate_limit_function(request, function, *args, **kwargs):
+    return function(request, *args, **kwargs)
 
 
-def verify_token(function, request, internal=False, *args, **kwargs):
+def verify_token(request, function, internal=False, *args, **kwargs):
     token = request.META.get("HTTP_AUTHORIZATION")
 
     # If token isn't specified in the header, check the query string
@@ -49,7 +54,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
 
         if internal:
             if token == os.environ.get("PERMANENT_TOKEN"):
-                return function(request, *args, **kwargs)
+                return rate_limit_function(request, function, *args, **kwargs)
 
             return Response(
                 {"detail": ERROR_NO_PERMISSION},
@@ -81,7 +86,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
                     print(f"User: {token_object.user.name}")
                 request.user = token_object.user
                 request.token = token
-                return function(request, *args, **kwargs)
+                return rate_limit_function(request, function, *args, **kwargs)
 
         else:
             # Otherwise, try to get the user from the token
@@ -99,7 +104,7 @@ def verify_token(function, request, internal=False, *args, **kwargs):
                     token_object.save()
                 request.user = user
                 request.token = token
-                return function(request, *args, **kwargs)
+                return rate_limit_function(request, function, *args, **kwargs)
             # Otherwise, return 401 and set token object to invalid
             else:
                 token_object = Token(token=token_hash, valid=False)
@@ -112,9 +117,8 @@ def verify_token(function, request, internal=False, *args, **kwargs):
 
 def token_auth(function):
     @wraps(function)
-    @ratelimit(key="user", rate="9/5s")
     def wrap(request, *args, **kwargs):
-        return verify_token(function, request, *args, **kwargs)
+        return verify_token(request, function, *args, **kwargs)
 
     return wrap
 

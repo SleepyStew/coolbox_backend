@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
+from django_ratelimit.exceptions import Ratelimited
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import exception_handler
 
 from coolbox_backend.views import IndexView
 from discordoauth.views import DiscordOAuthView, DiscordOAuthRedirectView
@@ -51,3 +55,15 @@ urlpatterns = [
         name="robots",
     ),
 ]
+
+
+def ratelimit_error_handler(exc, context):
+    response = exception_handler(exc, context)
+
+    if isinstance(exc, Ratelimited):
+        return Response(
+            {"detail": "You are being rate-limited. Please try again later."},
+            status=status.HTTP_429_TOO_MANY_REQUESTS,
+        )
+
+    return response
