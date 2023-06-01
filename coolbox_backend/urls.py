@@ -24,6 +24,7 @@ from rest_framework.views import exception_handler
 
 from coolbox_backend.views import IndexView
 from discordoauth.views import DiscordOAuthView, DiscordOAuthRedirectView
+from feedback.views import FeedbackView
 from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView, RemindersRescheduleView
 from schoolboxauth.views import UserView
@@ -49,6 +50,7 @@ urlpatterns = [
     path("stats/user_count", UserCountView.as_view(), name="user_count"),
     path("stats/message", MessageView.as_view(), name="status_message"),
     path("subjects", SubjectView.as_view(), name="subjects"),
+    path("feedback", FeedbackView.as_view(), name="feedback"),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
