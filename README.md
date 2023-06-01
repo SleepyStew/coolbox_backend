@@ -4,6 +4,9 @@
 [![Django CI](https://github.com/SleepyStew/coolbox_backend/actions/workflows/django.yml/badge.svg)](https://github.com/SleepyStew/coolbox_backend/actions/workflows/django.yml)
 
 ### Authorization: Bearer Token (SchoolBox)
+
+### All endpoint specific responses should have error handling
+
 # Endpoints
 
 ### GET /user
@@ -24,6 +27,7 @@ Overrides ALL quick notes
 Fields: Ordered list of objects(*Title, *Content)
 
 General Responses: 200, 400, 401
+
 Endpoint Specific Responses: 500
 
 ---
@@ -46,6 +50,7 @@ Edit an existing reminder
 Fields: *Id, Title, Due, Method, Assessment
 
 General Responses: 200, 400, 401
+
 Endpoint Specific Responses: 404
 
 
@@ -55,6 +60,7 @@ Delete a reminder
 Fields: *Id
 
 General Responses: 200, 400, 401
+
 Endpoint Specific Responses: 404
 
 ---
@@ -63,12 +69,14 @@ Endpoint Specific Responses: 404
 Link discord account
 
 General Responses: 401
+
 Endpoint Specific Responses: 302
 
 ### DELETE /discord
 Unlink discord account
 
 General Responses: 200, 401
+
 Endpoint Specific Responses: 404
 
 ---
@@ -107,4 +115,5 @@ Send feedback
 Fields: *Content, *Origin
 
 General Responses: 200, 400, 401
+
 Endpoint Specific Responses: 429, 500
