@@ -8,5 +8,5 @@ class FeedbackSerializer(serializers.Serializer):
     def validate_origin(self, value):
         # More origins soon
         if value not in ["schoolbox", "test"]:
-            raise serializers.ValidationError(f"Invalid origin.")
+            raise serializers.ValidationError("Invalid origin.")
         return value
