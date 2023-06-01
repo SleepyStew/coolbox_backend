@@ -2,7 +2,6 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from coolbox_backend.tests import authenticated_test_client
-from discordoauth.models import DiscordOAuth
 
 
 class FeedbackViewTestCase(APITestCase):
@@ -19,3 +18,4 @@ class FeedbackViewTestCase(APITestCase):
 
         response = self.client.post(discord_endpoint, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, data)

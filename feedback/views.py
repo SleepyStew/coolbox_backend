@@ -41,7 +41,7 @@ class FeedbackView(APIView):
             response = webhook.execute()
 
             if response.status_code == 200:
-                return Response(status=status.HTTP_200_OK)
+                return Response(serializer.data, status=status.HTTP_200_OK)
 
             return Response({"detail": "Failed to send webhook."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
