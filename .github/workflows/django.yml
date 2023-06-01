@@ -11,6 +11,7 @@ jobs:
   
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      TEST_WEBHOOK_URL: ${{ secrets.TEST_WEBHOOK_URL }}
       
     runs-on: ubuntu-latest
     strategy:
