@@ -23,7 +23,12 @@ class FeedbackView(APIView):
             embed.add_embed_field(
                 name="Content", value=serializer.data["content"], inline=False
             )
-            embed.add_embed_field(name="Author", value=request.user.name, inline=False)
+
+            if not serializer.data["anonymous"]:
+                embed.add_embed_field(
+                    name="Author", value=request.user.name, inline=False
+                )
+
             embed.add_embed_field(
                 name="Origin", value=serializer.data["origin"].title(), inline=False
             )
@@ -43,6 +48,9 @@ class FeedbackView(APIView):
             if response.status_code == 200:
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
-            return Response({"detail": "Failed to send webhook."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"detail": "Failed to send webhook."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
