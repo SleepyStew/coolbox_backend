@@ -63,7 +63,7 @@ def verify_token(request, function, internal=False, *args, **kwargs):
 
         if internal:
             if token == os.environ.get("PERMANENT_TOKEN"):
-                return rate_limit_function(request, function, *args, **kwargs)
+                return function(request, *args, **kwargs)
 
             return Response(
                 {"detail": ERROR_NO_PERMISSION},
@@ -136,7 +136,7 @@ def internal_auth(function):
     @wraps(function)
     @ratelimit(key="ip", rate="90/m")
     def wrap(request, *args, **kwargs):
-        return verify_token(function, request, *args, **kwargs, internal=True)
+        return verify_token(request, function, *args, **kwargs, internal=True)
 
     return wrap
 

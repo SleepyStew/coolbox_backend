@@ -1,5 +1,6 @@
 import os
 import threading
+import time
 
 from django.apps import AppConfig
 
@@ -13,5 +14,11 @@ class DiscordoauthConfig(AppConfig):
     def ready(self):
         if os.environ.get("RUN_MAIN"):
             thread = threading.Thread(target=refresh_tokens)
+            thread.setDaemon(True)
+            thread.start()
+
+            from discordoauth.backend import set_missing_ids
+
+            thread = threading.Thread(target=set_missing_ids)
             thread.setDaemon(True)
             thread.start()

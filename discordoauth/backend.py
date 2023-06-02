@@ -1,4 +1,5 @@
 import os
+import threading
 import time
 
 import requests
@@ -36,6 +37,32 @@ def refresh_token(oauth):
         oauth.save()
         return True
     return False
+
+
+def set_missing_ids():
+    from discordoauth.models import DiscordOAuth
+
+    for discordoauth in DiscordOAuth.objects.all():
+        if not discordoauth.discord_id:
+            print("Setting missing ID for " + str(discordoauth.user))
+            discord_user = get_discord_user(discordoauth.user)
+            if discord_user:
+                discordoauth.discord_id = discord_user["id"]
+                discordoauth.save()
+            time.sleep(1)
+
+    update_roles()
+
+
+def update_roles_async():
+    thread = threading.Thread(target=update_roles)
+    thread.setDaemon(True)
+    thread.start()
+
+
+def update_roles():
+    url = os.environ.get("DISCORD_BOT_URL") + "update_roles"
+    requests.get(url)
 
 
 def refresh_tokens():
