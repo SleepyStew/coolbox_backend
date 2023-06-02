@@ -10,3 +10,10 @@ class Reminder(models.Model):
     method = models.CharField(max_length=16)
     assessment = models.IntegerField(null=True)
     due = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title
+    
