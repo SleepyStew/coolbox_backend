@@ -7,3 +7,9 @@ class DiscordOAuth(models.Model):
     access_token = models.CharField(max_length=64)
     refresh_token = models.CharField(max_length=64)
     expires = models.IntegerField()
+
+    def __str__(self):
+        return self.user
+
+    def __repr__(self):
+        return self.user
