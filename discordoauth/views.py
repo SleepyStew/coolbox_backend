@@ -3,7 +3,6 @@ import time
 
 import requests
 from django.shortcuts import redirect
-
 # Create your views here.
 from django.utils.decorators import method_decorator
 from rest_framework import status
@@ -11,9 +10,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from coolbox_backend.settings import DEBUG
-from discordoauth.backend import get_discord_user
+from discordoauth.backend import get_discord_user, update_roles_async
 from discordoauth.models import DiscordOAuth
-from schoolboxauth.backend import token_auth
+from discordoauth.serializers import DiscordOAuthSerializer
+from schoolboxauth.backend import token_auth, internal_auth
 
 
 # Create your views here.
@@ -53,6 +53,11 @@ class DiscordOAuthView(APIView):
             discordoauth.save()
 
             discord_user = get_discord_user(request.user)
+
+            discordoauth.discord_id = discord_user["id"]
+            discordoauth.save()
+
+            update_roles_async()
 
             if discord_user["id"]:
                 data = {"access_token": discordoauth.access_token}
@@ -95,3 +100,11 @@ class DiscordOAuthRedirectView(APIView):
             f"&scope={scope}"
             f"&state={request.token}"
         )
+
+
+class DiscordOAuthUsersView(APIView):
+    @method_decorator(internal_auth)
+    def get(self, request):
+        serializer = DiscordOAuthSerializer(DiscordOAuth.objects.all(), many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

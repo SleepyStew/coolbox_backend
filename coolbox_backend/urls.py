@@ -23,7 +23,11 @@ from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
 from coolbox_backend.views import IndexView
-from discordoauth.views import DiscordOAuthView, DiscordOAuthRedirectView
+from discordoauth.views import (
+    DiscordOAuthView,
+    DiscordOAuthRedirectView,
+    DiscordOAuthUsersView,
+)
 from feedback.views import FeedbackView
 from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView, RemindersRescheduleView
@@ -42,6 +46,7 @@ urlpatterns = [
         name="reminders_reschedule",
     ),
     path("discord", DiscordOAuthView.as_view(), name="discord"),
+    path("discord/users", DiscordOAuthUsersView.as_view(), name="discord_users"),
     path(
         "discord/redirect", DiscordOAuthRedirectView.as_view(), name="discord_redirect"
     ),
