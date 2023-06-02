@@ -3,6 +3,7 @@ import time
 
 import requests
 from django.shortcuts import redirect
+
 # Create your views here.
 from django.utils.decorators import method_decorator
 from rest_framework import status
@@ -74,6 +75,7 @@ class DiscordOAuthView(APIView):
         discordoauth = DiscordOAuth.objects.filter(user=request.user).first()
         if discordoauth:
             discordoauth.delete()
+            update_roles_async()
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
