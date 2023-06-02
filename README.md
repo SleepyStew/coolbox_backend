@@ -112,7 +112,7 @@ General Responses: 200, 400, 401
 ### POST /feedback
 Send feedback
 
-Fields: *Content, *Origin
+Fields: *Content, *Origin, Anonymous
 
 General Responses: 200, 400, 401
 

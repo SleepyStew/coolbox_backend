@@ -14,6 +14,7 @@ class FeedbackViewTestCase(APITestCase):
         data = {
             "content": "Test message.",
             "origin": "test",
+            "anonymous": False,
         }
 
         response = self.client.post(discord_endpoint, data)
