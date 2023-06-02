@@ -58,8 +58,6 @@ class DiscordOAuthView(APIView):
             discordoauth.discord_id = discord_user["id"]
             discordoauth.save()
 
-            update_roles_async()
-
             if discord_user["id"]:
                 data = {"access_token": discordoauth.access_token}
                 headers = {
@@ -67,6 +65,8 @@ class DiscordOAuthView(APIView):
                 }
                 url = f"https://discord.com/api/guilds/999205764117835796/members/{discord_user['id']}"
                 requests.put(url, json=data, headers=headers)
+
+            update_roles_async()
 
         return redirect("https://schoolbox.donvale.vic.edu.au/")
 
