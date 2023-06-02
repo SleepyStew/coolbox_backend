@@ -8,6 +8,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from feedback.serializers import FeedbackSerializer
 from schoolboxauth.backend import token_auth
+from better_profanity import profanity
+
+
+profanity.load_censor_words()
 
 
 # Create your views here.
@@ -21,7 +25,11 @@ class FeedbackView(APIView):
             embed = DiscordEmbed(title="CoolBox Feedback")
 
             embed.add_embed_field(
-                name="Content", value=serializer.data["content"], inline=False
+                name="Content",
+                value=profanity.censor(serializer.data["content"]).replace(
+                    "****", "\\*\\*\\*\\*"
+                ),
+                inline=False,
             )
 
             if not serializer.data["anonymous"]:
