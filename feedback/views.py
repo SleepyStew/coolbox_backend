@@ -17,7 +17,7 @@ profanity.load_censor_words()
 # Create your views here.
 class FeedbackView(APIView):
     @method_decorator(token_auth)
-    @method_decorator(ratelimit(key="user", rate="2/m"))
+    @method_decorator(ratelimit(key="user", rate="6/h"))
     def post(self, request):
         serializer = FeedbackSerializer(data=request.data)
 
