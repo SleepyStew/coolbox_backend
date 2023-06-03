@@ -15,6 +15,9 @@ from schoolboxauth.models import User, Token
 ERROR_TOKEN_INVALID = "Invalid authentication token."
 ERROR_TOKEN_MISSING = "Missing authentication token."
 ERROR_NO_PERMISSION = "You do not have permission to perform this action."
+ERROR_ACCOUNT_INACTIVE = (
+    "Your account is deactivated. You do not have access to CoolBox."
+)
 
 
 def hash_token(token):
@@ -29,6 +32,15 @@ def rate_limit_key(group, request):
         return str(time.time_ns())
     else:
         return request.user.id
+
+
+def check_account_deactivated(request, user):
+    if not request.path.startswith("/user") and not user.is_active:
+        return Response(
+            {"detail": ERROR_ACCOUNT_INACTIVE},
+            status.HTTP_401_UNAUTHORIZED,
+        )
+    return False
 
 
 # Global rate limit for all endpoints, per user
@@ -93,6 +105,14 @@ def verify_token(request, function, internal=False, *args, **kwargs):
                     )
                 if token_object.user.name != "Test User":
                     print(f"User: {token_object.user.name}")
+
+                account_deactivated = check_account_deactivated(
+                    request, token_object.user
+                )
+
+                if account_deactivated:
+                    return account_deactivated
+
                 request.user = token_object.user
                 request.token = token
                 return rate_limit_function(request, function, *args, **kwargs)
@@ -111,6 +131,14 @@ def verify_token(request, function, internal=False, *args, **kwargs):
                 if not token_object:
                     token_object = Token(token=token_hash, user=user, valid=True)
                     token_object.save()
+
+                account_deactivated = check_account_deactivated(
+                    request, token_object.user
+                )
+
+                if account_deactivated:
+                    return account_deactivated
+
                 request.user = user
                 request.token = token
                 return rate_limit_function(request, function, *args, **kwargs)
