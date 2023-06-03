@@ -8,10 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from feedback.serializers import FeedbackSerializer
 from schoolboxauth.backend import token_auth
-from better_profanity import profanity
-
-
-profanity.load_censor_words()
+from purgo_malum import client
 
 
 # Create your views here.
@@ -26,8 +23,8 @@ class FeedbackView(APIView):
 
             embed.add_embed_field(
                 name="Content",
-                value=profanity.censor(serializer.data["content"]).replace(
-                    "****", "\\*\\*\\*\\*"
+                value=client.retrieve_filtered_text(
+                    serializer.data["content"], fill_text="**[censored]**"
                 ),
                 inline=False,
             )
