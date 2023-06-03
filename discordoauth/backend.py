@@ -4,6 +4,8 @@ import time
 
 import requests
 
+from coolbox_backend.settings import DEBUG
+
 
 def get_discord_user(user):
     discordoauth = user.discordoauth_set.first()
@@ -51,7 +53,8 @@ def set_missing_ids():
                 discordoauth.save()
             time.sleep(1)
 
-    update_roles()
+    if not DEBUG:
+        update_roles()
 
 
 def update_roles_async():
