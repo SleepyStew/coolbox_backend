@@ -74,8 +74,23 @@ class DiscordOAuthView(APIView):
     def delete(self, request):
         discordoauth = DiscordOAuth.objects.filter(user=request.user).first()
         if discordoauth:
+            data = {
+                "client_id": "999205944133177365",
+                "client_secret": os.environ.get("CLIENT_SECRET"),
+                "token": discordoauth.access_token,
+            }
+
+            headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+            requests.post(
+                "https://discordapp.com/api/oauth2/token/revoke",
+                data=data,
+                headers=headers,
+            )
+
             discordoauth.delete()
             update_roles_async()
+
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
