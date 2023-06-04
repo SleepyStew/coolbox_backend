@@ -53,7 +53,6 @@ def set_missing_ids():
                 discordoauth.save()
             time.sleep(1)
 
-    if not DEBUG:
         update_roles()
 
 
@@ -64,8 +63,11 @@ def update_roles_async():
 
 
 def update_roles():
-    url = os.environ.get("DISCORD_BOT_URL") + "update_roles"
-    requests.get(url)
+    if not DEBUG:
+        url = os.environ.get("DISCORD_BOT_URL") + "update_roles"
+        requests.get(url)
+    else:
+        print("Skipping role update in debug mode...")
 
 
 def refresh_tokens():
