@@ -76,7 +76,7 @@ def refresh_tokens():
     while True:
         time.sleep(60)
         for discordoauth in DiscordOAuth.objects.all():
-            if time.time() > discordoauth.expires:
+            if time.time() > discordoauth.expires - 600:
                 if refresh_token(discordoauth):
                     print(
                         "Refreshed token for "
