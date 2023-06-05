@@ -3,6 +3,7 @@ from rest_framework.test import APIClient, APITestCase
 
 from coolbox_backend.tests import authenticated_test_client
 from schoolboxauth.models import User
+from stats.views import status_types
 
 
 class RunningViewTestCase(APITestCase):
@@ -35,4 +36,5 @@ class MessageViewTestCase(APITestCase):
         response = self.client.get("/stats/message")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn("message", response.data)
+        for status_type in status_types:
+            self.assertIn(status_type, response.data)

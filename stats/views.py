@@ -39,11 +39,13 @@ class UserCountView(APIView):
         )
 
 
+status_types = ["info", "critical", "message"]
+
+
 class MessageView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
         # "message" to be deprecated
-        status_types = ["info", "critical", "message"]
         status_lookup = {}
         for status_type in status_types:
             with open(
