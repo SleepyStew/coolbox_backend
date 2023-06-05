@@ -42,7 +42,13 @@ class UserCountView(APIView):
 class MessageView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
-        with open(os.path.join(BASE_DIR, "status"), "r") as status_file:
-            content = status_file.read().strip()
-            message = content if content else None
-        return Response({"message": message}, status=status.HTTP_200_OK)
+        # "message" to be deprecated
+        status_types = ["info", "critical", "message"]
+        status_lookup = {}
+        for status_type in status_types:
+            with open(
+                os.path.join(BASE_DIR, f"status_{status_type}"), "r"
+            ) as status_file:
+                content = status_file.read().strip()
+                status_lookup[status_type] = content if content else None
+        return Response(status_lookup, status=status.HTTP_200_OK)

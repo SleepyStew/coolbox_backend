@@ -138,5 +138,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
-status
+status_*
 /static/
