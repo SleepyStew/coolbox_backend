@@ -56,6 +56,16 @@ def set_missing_ids():
         update_roles()
 
 
+# Patch due to some issues with previous refresh token system
+def remove_invalid_oauth():
+    from discordoauth.models import DiscordOAuth
+
+    for discordoauth in DiscordOAuth.objects.all():
+        if not get_discord_user(discordoauth.user):
+            print("Removing invalid OAuth for " + str(discordoauth.user))
+            discordoauth.delete()
+
+
 def update_roles_async():
     thread = threading.Thread(target=update_roles)
     thread.setDaemon(True)
