@@ -35,7 +35,15 @@ jobs:
         python manage.py migrate
     - uses: "finnp/create-file-action@master"
       env:
-        FILE_NAME: "status"
+        FILE_NAME: "status_message"
+        FILE_DATA: "Test Status"
+    - uses: "finnp/create-file-action@master"
+      env:
+        FILE_NAME: "status_info"
+        FILE_DATA: "Test Status"
+    - uses: "finnp/create-file-action@master"
+      env:
+        FILE_NAME: "status_critical"
         FILE_DATA: "Test Status"
     - name: Run Tests
       run: |
