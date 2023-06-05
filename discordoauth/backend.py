@@ -53,8 +53,6 @@ def set_missing_ids():
                 discordoauth.save()
             time.sleep(1)
 
-        update_roles()
-
 
 # Patch due to some issues with previous refresh token system
 def remove_invalid_oauth():
@@ -97,3 +95,10 @@ def refresh_tokens():
                 else:
                     print("Failed to refresh token for " + str(discordoauth.user))
                     discordoauth.delete()
+
+
+# Ordered execution
+def startup_logic():
+    remove_invalid_oauth()
+    set_missing_ids()
+    update_roles()
