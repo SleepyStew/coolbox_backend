@@ -22,6 +22,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     year = models.IntegerField(null=True)
     role = models.CharField(max_length=64, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
