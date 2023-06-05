@@ -17,14 +17,14 @@ class DiscordoauthConfig(AppConfig):
             thread.setDaemon(True)
             thread.start()
 
-            from discordoauth.backend import set_missing_ids
-
-            thread = threading.Thread(target=set_missing_ids)
-            thread.setDaemon(True)
-            thread.start()
-
             from discordoauth.backend import remove_invalid_oauth
 
             thread = threading.Thread(target=remove_invalid_oauth)
+            thread.setDaemon(True)
+            thread.start()
+
+            from discordoauth.backend import set_missing_ids
+
+            thread = threading.Thread(target=set_missing_ids)
             thread.setDaemon(True)
             thread.start()
