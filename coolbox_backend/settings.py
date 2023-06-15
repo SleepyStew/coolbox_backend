@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "discordoauth",
     "stats",
     "subjects",
+    # "roomchanges",
 ]
 
 MIDDLEWARE = [
