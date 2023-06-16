@@ -7,8 +7,8 @@ from roomchanges.backend import feed_loop
 
 
 class RoomchangesConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'roomchanges'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "roomchanges"
 
     def ready(self):
         if os.environ.get("RUN_MAIN"):

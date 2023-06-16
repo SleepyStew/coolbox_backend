@@ -11,4 +11,11 @@ from schoolboxauth.backend import token_auth
 class RoomChangesView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
-        return Response(backend.data, status=status.HTTP_200_OK)
+        return Response(
+            {
+                "room_changes": backend.data
+                if backend.day() == backend.last_updated
+                else []
+            },
+            status=status.HTTP_200_OK,
+        )

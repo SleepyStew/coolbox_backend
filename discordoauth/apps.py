@@ -13,7 +13,6 @@ class DiscordoauthConfig(AppConfig):
 
     def ready(self):
         if os.environ.get("RUN_MAIN"):
-
             thread = threading.Thread(target=refresh_tokens)
             thread.setDaemon(True)
             thread.start()
