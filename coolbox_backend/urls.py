@@ -31,6 +31,7 @@ from discordoauth.views import (
 from feedback.views import FeedbackView
 from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView, RemindersRescheduleView
+from roomchanges.views import RoomChangesView
 from schoolboxauth.views import UserView
 from stats.views import RunningView, UserCountView, MessageView
 from subjects.views import SubjectView
@@ -56,6 +57,7 @@ urlpatterns = [
     path("stats/message", MessageView.as_view(), name="status_message"),
     path("subjects", SubjectView.as_view(), name="subjects"),
     path("feedback", FeedbackView.as_view(), name="feedback"),
+    path("room-changes", RoomChangesView.as_view(), name="room-changes"),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),

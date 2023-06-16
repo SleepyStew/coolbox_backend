@@ -1,17 +1,31 @@
 import os
-from pprint import pprint
+import time
 
+import pandas as pd
 import feedparser
-from dotenv import load_dotenv
+
+
+data = []
 
 
 def get_feed():
+    global data
     rss_url = os.environ.get('FEED_URL')
-    news_feed = feedparser.parse(rss_url)
+    news_feed = feedparser.parse(rss_url, sanitize_html=True)
 
-    pprint(news_feed.entries[0])
+    for news in news_feed.entries:
+        if news["title"].startswith("Room Changes"):
+            data = []
+            df_list = pd.read_html(news["summary"])[0][1:]
+            for class_, timetabled_room, assigned_room in zip(df_list[2], df_list[4], df_list[5]):
+                data.append({"class": class_, "timetabled_room": timetabled_room, "assigned_room": assigned_room})
+            break
 
 
-if __name__ == '__main__':
-    load_dotenv()
-    get_feed()
+def feed_loop():
+    while True:
+        try:
+            get_feed()
+        except Exception as e:
+            print(e)
+        time.sleep(600)

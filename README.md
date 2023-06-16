@@ -117,3 +117,9 @@ Fields: *Content, *Origin, Anonymous
 General Responses: 200, 400, 401
 
 Endpoint Specific Responses: 429, 500
+
+---
+
+### GET /room-changes
+
+General Responses: 200, 401
