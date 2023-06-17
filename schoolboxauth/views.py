@@ -1,11 +1,10 @@
 from django.utils.decorators import method_decorator
 from rest_framework import status
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from discordoauth.backend import get_discord_user
 from schoolboxauth.backend import token_auth
-from schoolboxauth.models import User
 from schoolboxauth.serializers import UserSerializer
 
 

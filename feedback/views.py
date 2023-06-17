@@ -19,6 +19,9 @@ class FeedbackView(APIView):
         serializer = FeedbackSerializer(data=request.data)
 
         if serializer.is_valid():
+            # To prevent abuse, feedback must be logged to some extent
+            print(f"Feedback: {request.user.name} - {serializer.data['content']}")
+
             embed = DiscordEmbed(title="CoolBox Feedback")
 
             embed.add_embed_field(

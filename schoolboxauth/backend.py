@@ -10,6 +10,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from django_ratelimit.decorators import ratelimit
 
+from coolbox_backend.settings import DEBUG
 from schoolboxauth.models import User, Token
 
 ERROR_TOKEN_INVALID = "Invalid authentication token."
@@ -103,7 +104,7 @@ def verify_token(request, function, internal=False, *args, **kwargs):
                         {"detail": ERROR_TOKEN_INVALID},
                         status.HTTP_401_UNAUTHORIZED,
                     )
-                if token_object.user.name != "Test User":
+                if token_object.user.name != "Test User" and DEBUG:
                     print(f"User: {token_object.user.name}")
 
                 account_deactivated = check_account_deactivated(
@@ -126,7 +127,7 @@ def verify_token(request, function, internal=False, *args, **kwargs):
             # If user exists, set the token object's user to that user
             # And token still doesn't exist
             if user:
-                if user.name != "Test User":
+                if user.name != "Test User" and DEBUG:
                     print(f"User: {user.name}")
                 if not token_object:
                     token_object = Token(token=token_hash, user=user, valid=True)
