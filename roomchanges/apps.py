@@ -11,7 +11,7 @@ class RoomchangesConfig(AppConfig):
     name = "roomchanges"
 
     def ready(self):
-        if os.environ.get("RUN_MAIN"):
+        if os.environ.get("RUN_MAIN", None) != "true":
             thread = threading.Thread(target=feed_loop)
             thread.setDaemon(True)
             thread.start()

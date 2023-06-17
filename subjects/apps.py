@@ -12,7 +12,7 @@ class SubjectsConfig(AppConfig):
     name = "subjects"
 
     def ready(self):
-        if os.environ.get("RUN_MAIN"):
+        if os.environ.get("RUN_MAIN", None) != "true":
             thread = Thread(target=update_subjects)
             thread.setDaemon(True)
             thread.start()

@@ -11,7 +11,7 @@ class RemindersConfig(AppConfig):
     name = "reminders"
 
     def ready(self):
-        if os.environ.get("RUN_MAIN"):
+        if os.environ.get("RUN_MAIN", None) != "true":
             thread = threading.Thread(target=reminder_check)
             thread.setDaemon(True)
             thread.start()
