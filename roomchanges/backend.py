@@ -39,7 +39,7 @@ def feed_loop():
             get_feed()
         except Exception as e:
             print(e)
-        time.sleep(600)
+        time.sleep(3600)
 
 
 def day():

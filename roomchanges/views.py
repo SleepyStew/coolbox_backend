@@ -11,6 +11,8 @@ from schoolboxauth.backend import token_auth
 class RoomChangesView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
+        # For debugging production environment
+        print(backend.day(), backend.last_updated)
         return Response(
             {
                 "room_changes": backend.data
