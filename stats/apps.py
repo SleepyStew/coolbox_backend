@@ -1,7 +1,9 @@
 import os
-from pprint import pprint
+import threading
 
 from django.apps import AppConfig
+
+from stats.backend import debug_loop
 
 
 class StatsConfig(AppConfig):
@@ -12,3 +14,6 @@ class StatsConfig(AppConfig):
         print("PRESTART")
         if os.environ.get("RUN_MAIN", None) != "true":
             print("STARTED")
+            thread = threading.Thread(target=debug_loop)
+            thread.setDaemon(True)
+            thread.start()
