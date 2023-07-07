@@ -34,7 +34,7 @@ def refresh_token(oauth):
     )
     if response.status_code == 200:
         oauth.access_token = response.json()["access_token"]
-        oauth.expires = time.time() + response.json()["expires_in"] - 3600
+        oauth.expires = time.time() + response.json()["expires_in"]
         oauth.refresh_token = response.json()["refresh_token"]
         oauth.save()
         return True
@@ -84,7 +84,7 @@ def refresh_tokens():
     while True:
         time.sleep(60)
         for discordoauth in DiscordOAuth.objects.all():
-            if time.time() > discordoauth.expires - 600:
+            if time.time() > discordoauth.expires - 3600:
                 if refresh_token(discordoauth):
                     print(
                         "Refreshed token for "
