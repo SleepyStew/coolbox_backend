@@ -12,6 +12,7 @@ from django_ratelimit.decorators import ratelimit
 
 from coolbox_backend.settings import DEBUG
 from schoolboxauth.models import User, Token
+from secrets import compare_digest
 
 ERROR_TOKEN_INVALID = "Invalid authentication token."
 ERROR_TOKEN_MISSING = "Missing authentication token."
@@ -75,7 +76,7 @@ def verify_token(request, function, internal=False, *args, **kwargs):
         token = token.split("Bearer ")[1]
 
         if internal:
-            if token == os.environ.get("PERMANENT_TOKEN"):
+            if compare_digest(token, os.environ.get("PERMANENT_TOKEN")):
                 return function(request, *args, **kwargs)
 
             return Response(
@@ -181,7 +182,7 @@ def delete_old_tokens():
 class SchoolboxAuthentication(BaseBackend):
     def authenticate(self, request, username=None, password=None):
         user = User.from_token(username)
-        password_valid = password == os.environ.get("ADMIN_PASSWORD")
+        password_valid = compare_digest(password, os.environ.get("ADMIN_PASSWORD"))
         if not user or not password_valid:
             return None
         return user
