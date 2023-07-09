@@ -1,18 +1,17 @@
 import hashlib
 import os
-import random
 import time
 from functools import wraps
+from secrets import compare_digest
 
 from django.contrib.auth.backends import BaseBackend
 from django.utils import timezone
+from django_ratelimit.decorators import ratelimit
 from rest_framework import status
 from rest_framework.response import Response
-from django_ratelimit.decorators import ratelimit
 
 from coolbox_backend.settings import DEBUG
 from schoolboxauth.models import User, Token
-from secrets import compare_digest
 
 ERROR_TOKEN_INVALID = "Invalid authentication token."
 ERROR_TOKEN_MISSING = "Missing authentication token."
