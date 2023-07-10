@@ -31,8 +31,6 @@ def get_forecast():
                 "precipitation_probability_mean": response["daily"]["precipitation_probability_mean"][i],
             }
 
-        print(forecast)
-
         Forecast.objects.create(forecast=forecast)
 
 
