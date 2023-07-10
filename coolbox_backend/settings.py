@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "stats",
     "subjects",
     "roomchanges",
+    "weather",
 ]
 
 MIDDLEWARE = [

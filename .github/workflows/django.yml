@@ -12,7 +12,8 @@ jobs:
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       TEST_WEBHOOK_URL: ${{ secrets.TEST_WEBHOOK_URL }}
-      
+      WEATHER_API_URL: ${{ secrets.WEATHER_API_URL }}
+
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4

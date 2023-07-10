@@ -123,3 +123,13 @@ Endpoint Specific Responses: 429, 500
 ### GET /room-changes
 
 General Responses: 200, 401
+
+---
+
+### GET /weather
+
+General Responses: 200, 401
+
+Endpoint Specific Responses: 500
+
+---

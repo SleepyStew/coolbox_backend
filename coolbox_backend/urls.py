@@ -35,6 +35,7 @@ from roomchanges.views import RoomChangesView
 from schoolboxauth.views import UserView
 from stats.views import RunningView, UserCountView, MessageView
 from subjects.views import SubjectView
+from weather.views import WeatherView
 
 urlpatterns = [
     path("cba", admin.site.urls),
@@ -58,6 +59,7 @@ urlpatterns = [
     path("subjects", SubjectView.as_view(), name="subjects"),
     path("feedback", FeedbackView.as_view(), name="feedback"),
     path("room-changes", RoomChangesView.as_view(), name="room-changes"),
+    path("weather", WeatherView.as_view(), name="weather"),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
