@@ -14,7 +14,7 @@ jobs:
       TEST_WEBHOOK_URL: ${{ secrets.TEST_WEBHOOK_URL }}
       WEATHER_API_URL: ${{ secrets.WEATHER_API_URL }}
       FEED_URL: ${{ secrets.FEED_URL }}
-      DEBUG: True
+      DEBUG: "True"
 
     runs-on: ubuntu-latest
     strategy:
