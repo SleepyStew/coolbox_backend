@@ -97,11 +97,11 @@ DATABASES = {
     if DEBUG
     else {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ["DB_SCHEMA"],
-        "HOST": os.environ["DB_HOST"],
+        "NAME": os.environ.get("DB_SCHEMA"),
+        "HOST": os.environ.get("DB_HOST"),
         "PORT": 3306,
-        "USER": os.environ["DB_USER"],
-        "PASSWORD": os.environ["DB_PASSWORD"],
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
     },
 }
 
