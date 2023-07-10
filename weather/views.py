@@ -18,7 +18,7 @@ class WeatherView(APIView):
         return Response(
             {
                 "last_updated": forecast.last_updated,
-                **forecast.forecast,
+                "forecast": forecast.forecast.values(),
             },
             status=status.HTTP_200_OK,
         )

@@ -71,7 +71,7 @@ def update_roles_async():
 
 
 def update_roles():
-    if not DEBUG:
+    if not DEBUG and os.environ.get("RUN_MAIN", None) != "true":
         url = os.environ.get("DISCORD_BOT_URL") + "update_roles"
         requests.get(url)
     else:
