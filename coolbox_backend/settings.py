@@ -94,7 +94,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
         "OPTIONS": {"timeout": 5},
     }
-    if DEBUG
+    if os.environ.get("TEST_ENVIRONMENT", "False") == "True"
     else {
         "ENGINE": "django.db.backends.mysql",
         "NAME": os.environ.get("DB_SCHEMA"),
