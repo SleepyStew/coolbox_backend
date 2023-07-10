@@ -104,7 +104,10 @@ DATABASES = {
     },
 }
 
-DATABASES["default"] = DATABASES[os.getenv("DB_TYPE", "mysql")]
+if DEBUG:
+    DATABASES["default"] = DATABASES[os.getenv("DB_TYPE", "sqlite")]
+else:
+    DATABASES["default"] = DATABASES[os.getenv("DB_TYPE", "mysql")]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
