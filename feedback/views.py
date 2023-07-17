@@ -22,6 +22,12 @@ class FeedbackView(APIView):
             # To prevent abuse, feedback must be logged to some extent
             print(f"Feedback: {request.user.name} - {serializer.data['content']}")
 
+            if request.user.feedback_disabled:
+                return Response(
+                    {"detail": "You are not allowed to submit feedback."},
+                    status=status.HTTP_403_FORBIDDEN,
+                )
+
             embed = DiscordEmbed(title="CoolBox Feedback")
 
             embed.add_embed_field(
