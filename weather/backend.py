@@ -35,6 +35,7 @@ def get_forecast():
                 ][i],
             }
 
+        Forecast.objects.all().delete()
         Forecast.objects.create(forecast=forecast)
 
 
