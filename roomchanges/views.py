@@ -14,10 +14,8 @@ class RoomChangesView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
         room_changes = RoomChange.objects.all()
-        room_change_serializer = RoomChangeSerializer(room_changes, many=True)
+        serializer = RoomChangeSerializer(room_changes, many=True)
         return Response(
-            {
-                "room_changes": room_change_serializer.data
-            },
+            serializer.data,
             status=status.HTTP_200_OK,
         )
