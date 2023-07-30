@@ -22,7 +22,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
-from coolbox_backend.views import IndexView
+from coolbox_backend.views import IndexView, StartView
 from discordoauth.views import (
     DiscordOAuthView,
     DiscordOAuthRedirectView,
@@ -60,6 +60,7 @@ urlpatterns = [
     path("feedback", FeedbackView.as_view(), name="feedback"),
     path("room-changes", RoomChangesView.as_view(), name="room-changes"),
     path("weather", WeatherView.as_view(), name="weather"),
+    path("start", StartView.as_view(), name="start"),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),

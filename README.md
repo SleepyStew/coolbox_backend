@@ -121,15 +121,24 @@ Endpoint Specific Responses: 429, 500
 ---
 
 ### GET /room-changes
+Get today's room changes
 
 General Responses: 200, 401
 
 ---
 
 ### GET /weather
+Get current weather
 
 General Responses: 200, 401
 
 Endpoint Specific Responses: 500
+
+---
+
+### GET /start
+Collates needed data for initial page load
+
+General Responses: 200, 401
 
 ---
