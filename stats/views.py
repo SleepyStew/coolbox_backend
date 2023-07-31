@@ -28,9 +28,9 @@ class UserCountView(APIView):
     @method_decorator(ratelimit(key="ip", rate="5/3s"))
     def get(self, request):
         user_count = User.objects.count()
-        # last_login within 5 days
+        # last_login within 7 days
         active_user_count = User.objects.filter(
-            last_login__gte=timezone.now() - timezone.timedelta(days=5)
+            last_login__gte=timezone.now() - timezone.timedelta(days=7)
         ).count()
 
         return Response(
