@@ -29,9 +29,11 @@ class StartView(APIView):
             "weather": WeatherView.as_view()(request._request),
             "room_changes": RoomChangesView.as_view()(request._request),
         }
-        return Response({
-            "status_codes": {
-                request: requests[request].status_code for request in requests
-            },
-            **{request: requests[request].data for request in requests}
-        })
+        return Response(
+            {
+                "status_codes": {
+                    request: requests[request].status_code for request in requests
+                },
+                **{request: requests[request].data for request in requests},
+            }
+        )

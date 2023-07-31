@@ -142,3 +142,12 @@ Collates needed data for initial page load
 General Responses: 200, 401
 
 ---
+
+### POST /error-report
+Submit an automatic error report
+
+Fields: *Error, Detail
+
+General Responses: 200, 400, 401
+
+---
