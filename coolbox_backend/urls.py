@@ -28,6 +28,7 @@ from discordoauth.views import (
     DiscordOAuthRedirectView,
     DiscordOAuthUsersView,
 )
+from errorreporting.views import ErrorReportView
 from feedback.views import FeedbackView
 from quicknotes.views import QuickNotesView
 from reminders.views import RemindersView, RemindersRescheduleView
@@ -61,6 +62,7 @@ urlpatterns = [
     path("room-changes", RoomChangesView.as_view(), name="room-changes"),
     path("weather", WeatherView.as_view(), name="weather"),
     path("start", StartView.as_view(), name="start"),
+    path("error-report", ErrorReportView.as_view(), name="error-report"),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
