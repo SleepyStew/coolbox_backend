@@ -116,6 +116,7 @@ def verify_token(request, function, internal=False, *args, **kwargs):
 
                 request.user = token_object.user
                 request.token = token
+                print("Request from", token_object.user.name)
                 return rate_limit_function(request, function, *args, **kwargs)
 
         else:
@@ -142,6 +143,7 @@ def verify_token(request, function, internal=False, *args, **kwargs):
 
                 request.user = user
                 request.token = token
+                print("Request from", user.name)
                 return rate_limit_function(request, function, *args, **kwargs)
             # Otherwise, return 401 and set token object to invalid
             else:
