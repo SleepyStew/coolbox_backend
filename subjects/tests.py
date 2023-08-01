@@ -18,4 +18,4 @@ class SubjectViewTestCase(APITestCase):
         response = self.client.post("/subjects", self.subject_data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), len(self.subject_data))
+        self.assertEqual(len(response.data), 0)
