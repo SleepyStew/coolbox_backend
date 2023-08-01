@@ -34,4 +34,5 @@ class SubjectView(APIView):
                     subject_objects.append(subject_object)
 
         serializer = RetrieveSubjectSerializer(subject_objects, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        not_blank_subjects = [subject for subject in serializer.data if subject.pretty != ""]
+        return Response(not_blank_subjects, status=status.HTTP_200_OK)
