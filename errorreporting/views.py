@@ -11,7 +11,7 @@ from schoolboxauth.backend import token_auth
 class ErrorReportView(APIView):
     @method_decorator(token_auth)
     def post(self, request):
-        serializer = ErrorReportSerializer(data=request.data)
+        serializer = ErrorReportSerializer(data=request.data, many=True)
 
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
