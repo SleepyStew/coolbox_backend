@@ -3,7 +3,6 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from roomchanges import backend
 from roomchanges.models import RoomChange
 from roomchanges.serializers import RoomChangeSerializer
 from schoolboxauth.backend import token_auth

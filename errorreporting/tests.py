@@ -11,15 +11,15 @@ class ErrorReportViewTestCase(APITestCase):
     def test_subject_view(self):
         error_report_endpoint = "/error-report"
 
-        errors = [{
-            "error": "Test",
-            "detail": "Detail",
-
-        },
+        errors = [
+            {
+                "error": "Test",
+                "detail": "Detail",
+            },
             {
                 "error": "Test2",
                 "detail": "Detail2",
-            }
+            },
         ]
 
         response = self.client.post(error_report_endpoint, errors, format="json")

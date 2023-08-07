@@ -4,7 +4,6 @@ from threading import Thread
 from django.apps import AppConfig
 
 from subjects.backend import update_subjects
-from subjects.subjects import subjects_pretty
 
 
 class SubjectsConfig(AppConfig):
