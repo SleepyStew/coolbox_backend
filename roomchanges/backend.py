@@ -11,10 +11,10 @@ def get_feed():
     rss_url = os.environ.get("FEED_URL")
     news_feed = feedparser.parse(rss_url, sanitize_html=True)
 
+    RoomChange.objects.all().delete()
+    
     for news in news_feed.entries:
         if news["title"].startswith("Room Changes"):
-            # First, delete all previous NewsFeed objects
-            RoomChange.objects.all().delete()
             data = []
             df_list = pd.read_html(news["summary"])[0][1:]
             for class_, timetabled_room, assigned_room in zip(
