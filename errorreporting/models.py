@@ -10,7 +10,7 @@ class ErrorReport(models.Model):
     detail = models.TextField(blank=True)
 
     def __str__(self):
-        return self.author.name
+        return self.error
 
     def __repr__(self):
-        return self.author.name
+        return self.error
