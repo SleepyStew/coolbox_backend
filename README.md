@@ -138,6 +138,7 @@ Endpoint Specific Responses: 500
 
 ### GET /start
 Collates needed data for initial page load
+This endpoint makes ~6 internal requests, beware of ratelimit.
 
 General Responses: 200, 401
 
