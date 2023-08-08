@@ -46,7 +46,7 @@ def check_account_deactivated(request, user):
 
 # Global rate limit for all endpoints, per user
 # Rather complex, but necessary due to how users are authenticated from tokens
-@ratelimit(key=rate_limit_key, rate="9/5s")
+@ratelimit(key=rate_limit_key, rate="300/5m")
 def rate_limit_function(request, function, *args, **kwargs):
     return function(request, *args, **kwargs)
 
