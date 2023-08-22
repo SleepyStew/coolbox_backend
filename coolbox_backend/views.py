@@ -20,7 +20,6 @@ class IndexView(APIView):
 
 
 class StartView(APIView):
-    @method_decorator(token_auth)
     def get(self, request):
         requests = {
             "user": UserView.as_view()(request._request),
