@@ -1,14 +1,12 @@
 # Create your views here.
-from django.utils.decorators import method_decorator
-from rest_framework.views import APIView
+
 from django.shortcuts import redirect
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from reminders.views import RemindersView
 from roomchanges.views import RoomChangesView
-from schoolboxauth.backend import token_auth
 from schoolboxauth.views import UserView
-from rest_framework.response import Response
-
 from stats.views import MessageView
 from weather.views import WeatherView
 
@@ -19,15 +17,29 @@ class IndexView(APIView):
         return redirect("https://github.com/SleepyStew/coolbox_backend")
 
 
+def create_requests(request_template, requests):
+    return_requests = {}
+    endpoint_request = request_template._request
+
+    for endpoint, view in requests.items():
+        endpoint_request.path = "/" + endpoint
+        return_requests[endpoint] = view(endpoint_request)
+
+    return return_requests
+
+
 class StartView(APIView):
     def get(self, request):
-        requests = {
-            "user": UserView.as_view()(request._request),
-            "status": MessageView.as_view()(request._request),
-            "reminders": RemindersView.as_view()(request._request),
-            "weather": WeatherView.as_view()(request._request),
-            "room_changes": RoomChangesView.as_view()(request._request),
-        }
+        requests = create_requests(
+            request,
+            {
+                "user": UserView.as_view(),
+                "status": MessageView.as_view(),
+                "reminders": RemindersView.as_view(),
+                "weather": WeatherView.as_view(),
+                "room_changes": RoomChangesView.as_view(),
+            },
+        )
         return Response(
             {
                 "status_codes": {
