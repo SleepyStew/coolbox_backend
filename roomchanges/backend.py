@@ -12,7 +12,7 @@ def get_feed():
     news_feed = feedparser.parse(rss_url, sanitize_html=True)
 
     RoomChange.objects.all().delete()
-    
+
     for news in news_feed.entries:
         if news["title"].startswith("Room Changes"):
             data = []
