@@ -16,9 +16,9 @@ def get_feed():
     for news in news_feed.entries:
         if news["title"].startswith("Room Changes"):
             data = []
-            df_list = pd.read_html(news["summary"])[0][1:]
+            df_list = pd.read_html(news["summary"], header=0)[0]
             for class_, timetabled_room, assigned_room in zip(
-                df_list[2], df_list[4], df_list[5]
+                df_list["Class"], df_list["Timetabled Room"], df_list["Assigned Room"]
             ):
                 # Create a new RoomChange object for each item
                 RoomChange.objects.create(
