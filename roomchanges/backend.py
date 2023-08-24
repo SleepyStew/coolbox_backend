@@ -5,6 +5,13 @@ import feedparser
 import pandas as pd
 
 
+def get_key(dictionary, search_key):
+    for key in dictionary:
+        if search_key in key.lower():
+            return key
+    return None
+
+
 def get_feed():
     from .models import RoomChange
 
@@ -14,11 +21,16 @@ def get_feed():
     RoomChange.objects.all().delete()
 
     for news in news_feed.entries:
-        if news["title"].startswith("Room Changes"):
+        if news["title"].lower().startswith("room change"):
             data = []
             df_list = pd.read_html(news["summary"], header=0)[0]
+
+            classes = df_list.get(get_key(df_list, "class"))
+            timetabled_rooms = df_list.get(get_key(df_list, "timetabled"))
+            assigned_rooms = df_list.get(get_key(df_list, "assigned"))
+
             for class_, timetabled_room, assigned_room in zip(
-                df_list["Class"], df_list["Timetabled Room"], df_list["Assigned Room"]
+                classes, timetabled_rooms, assigned_rooms
             ):
                 # Create a new RoomChange object for each item
                 RoomChange.objects.create(
