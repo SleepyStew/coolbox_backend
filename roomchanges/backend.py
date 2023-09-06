@@ -7,7 +7,7 @@ import pandas as pd
 
 def get_key(dictionary, search_key):
     for key in dictionary:
-        if search_key in key.lower():
+        if key.lower().startswith(search_key):
             return key
     return None
 
