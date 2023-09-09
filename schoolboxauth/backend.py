@@ -10,6 +10,7 @@ from django_ratelimit.decorators import ratelimit
 from rest_framework import status
 from rest_framework.response import Response
 
+from coolbox_backend.backend import scheduler
 from coolbox_backend.settings import DEBUG
 from schoolboxauth.models import User, Token
 
@@ -172,12 +173,11 @@ def internal_auth(function):
     return wrap
 
 
+@scheduler.scheduled_job("interval", hours=1)
 def delete_old_tokens():
-    while True:
-        for token in Token.objects.all():
-            if (timezone.now() - token.created_at).days >= 3:
-                token.delete()
-        time.sleep(1800)
+    for token in Token.objects.all():
+        if (timezone.now() - token.created_at).days >= 3:
+            token.delete()
 
 
 class SchoolboxAuthentication(BaseBackend):

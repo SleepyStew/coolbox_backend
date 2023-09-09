@@ -4,7 +4,10 @@ import time
 import feedparser
 import pandas as pd
 
+from coolbox_backend.backend import scheduler
 
+
+@scheduler.scheduled_job("interval", minutes=10)
 def get_feed():
     from .models import RoomChange
 
@@ -34,12 +37,3 @@ def get_feed():
                     }
                 )
             break
-
-
-def feed_loop():
-    while True:
-        try:
-            get_feed()
-        except Exception as e:
-            print(e)
-        time.sleep(3600)

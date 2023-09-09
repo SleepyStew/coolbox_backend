@@ -1,13 +1,14 @@
 import os
-import time
 from datetime import datetime
 
 import humanize
 import requests
 
+from coolbox_backend.backend import scheduler
 from weather.constants import weathercodes
 
 
+@scheduler.scheduled_job("interval", minutes=60)
 def get_forecast():
     from .models import Forecast
 
@@ -36,12 +37,3 @@ def get_forecast():
 
         Forecast.objects.all().delete()
         Forecast.objects.create(forecast=forecast)
-
-
-def forecast_loop():
-    while True:
-        try:
-            get_forecast()
-        except Exception as e:
-            print(e)
-        time.sleep(3600)

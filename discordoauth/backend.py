@@ -1,9 +1,9 @@
 import os
-import threading
 import time
 
 import requests
 
+from coolbox_backend.backend import scheduler
 from coolbox_backend.settings import DEBUG
 
 
@@ -65,9 +65,7 @@ def remove_invalid_oauth():
 
 
 def update_roles_async():
-    thread = threading.Thread(target=update_roles)
-    thread.setDaemon(True)
-    thread.start()
+    scheduler.add_job(update_roles)
 
 
 def update_roles():
@@ -78,26 +76,26 @@ def update_roles():
         print("Skipping role update in debug mode...")
 
 
+@scheduler.scheduled_job("interval", minutes=10)
 def refresh_tokens():
     from discordoauth.models import DiscordOAuth
 
-    while True:
-        time.sleep(60)
-        for discordoauth in DiscordOAuth.objects.all():
-            if time.time() > discordoauth.expires - 3600:
-                if refresh_token(discordoauth):
-                    print(
-                        "Refreshed token for "
-                        + get_discord_user(discordoauth.user)["username"]
-                        + "#"
-                        + get_discord_user(discordoauth.user)["discriminator"]
-                    )
-                else:
-                    print("Failed to refresh token for " + str(discordoauth.user))
-                    discordoauth.delete()
+    for discordoauth in DiscordOAuth.objects.all():
+        if time.time() > discordoauth.expires - 3600:
+            if refresh_token(discordoauth):
+                print(
+                    "Refreshed token for "
+                    + get_discord_user(discordoauth.user)["username"]
+                    + "#"
+                    + get_discord_user(discordoauth.user)["discriminator"]
+                )
+            else:
+                print("Failed to refresh token for " + str(discordoauth.user))
+                discordoauth.delete()
 
 
-# Ordered execution
+# Ordered execution, run only once on startup
+@scheduler.scheduled_job(None)
 def startup_logic():
     remove_invalid_oauth()
     set_missing_ids()
