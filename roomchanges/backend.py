@@ -49,12 +49,3 @@ def get_feed():
                     }
                 )
             break
-
-
-def feed_loop():
-    while True:
-        try:
-            get_feed()
-        except Exception as e:
-            print(e)
-        time.sleep(3600)
