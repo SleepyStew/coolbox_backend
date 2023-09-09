@@ -2,6 +2,8 @@ import os
 
 from django.apps import AppConfig
 
+from coolbox_backend.backend import scheduler
+
 
 class StatsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
@@ -11,3 +13,4 @@ class StatsConfig(AppConfig):
         print("PRESTART")
         if os.environ.get("RUN_MAIN", None) != "true":
             print("STARTED")
+            scheduler.start()
