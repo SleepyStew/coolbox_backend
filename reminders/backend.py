@@ -12,9 +12,6 @@ def reminder_check():
     from discordoauth.backend import get_discord_user
     from reminders.models import Reminder
 
-    # Temporary debug statement
-    print("Reminder check")
-
     for reminder in Reminder.objects.all():
         if reminder.due / 1000 > datetime.now().timestamp():
             continue
