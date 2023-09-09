@@ -11,6 +11,10 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+from coolbox_backend.backend import scheduler
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "coolbox_backend.settings")
 
 application = get_wsgi_application()
+
+scheduler.start()
