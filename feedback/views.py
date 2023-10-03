@@ -34,8 +34,7 @@ class FeedbackView(APIView):
             filter_request = requests.get(
                 "https://www.purgomalum.com/service/json?text="
                 + quote(serializer.data["content"])
-                + "&fill_char="
-                + quote("*")
+                + "&fill_char=*"
             )
 
             if filter_request.status_code != 200 or not filter_request.json().get(
