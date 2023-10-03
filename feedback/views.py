@@ -1,5 +1,6 @@
 import os
 
+import requests
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from django.utils.decorators import method_decorator
 from django_ratelimit.decorators import ratelimit
@@ -8,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from feedback.serializers import FeedbackSerializer
 from schoolboxauth.backend import token_auth
-from purgo_malum import client
+from urllib.parse import quote
 
 
 # Create your views here.
@@ -30,11 +31,24 @@ class FeedbackView(APIView):
 
             embed = DiscordEmbed(title="CoolBox Feedback")
 
+            filter_request = requests.get(
+                "https://www.purgomalum.com/service/json?text="
+                + quote(serializer.data["content"])
+                + "&fill_char="
+                + quote("*")
+            )
+
+            if filter_request.status_code != 200 or not filter_request.json().get(
+                "result"
+            ):
+                return Response(
+                    {"detail": "Failed to filter text."},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+
             embed.add_embed_field(
                 name="Content",
-                value=client.retrieve_filtered_text(
-                    serializer.data["content"], fill_text="**[censored]**"
-                ),
+                value=filter_request.json()["result"].replace("*", "\\*"),
                 inline=False,
             )
 
