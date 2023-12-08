@@ -1,15 +1,15 @@
 import html
+from datetime import datetime
 
 import requests
 
 from coolbox_backend.backend import scheduler
 
 
-@scheduler.scheduled_job("interval", hours=6)
+@scheduler.scheduled_job("interval", hours=6, next_run_time=datetime.now())
 def get_daily_verse():
     from .models import DailyVerse
 
-    print("hey")
     daily_verse_request = requests.get(
         "https://www.biblegateway.com/votd/get/?format=json&version=NIV"
     )
