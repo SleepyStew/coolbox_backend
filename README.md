@@ -153,3 +153,12 @@ Fields: *Error, Detail
 General Responses: 200, 400, 401
 
 ---
+
+### GET /daily-message/verse
+Get daily bible verse
+
+General Responses: 200, 401
+
+Endpoint Specific Responses: 404
+
+---

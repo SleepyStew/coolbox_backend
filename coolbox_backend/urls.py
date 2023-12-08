@@ -23,6 +23,7 @@ from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
 from coolbox_backend.views import IndexView, StartView
+from dailymessages.views import DailyVerseView
 from discordoauth.views import (
     DiscordOAuthView,
     DiscordOAuthRedirectView,
@@ -62,6 +63,7 @@ urlpatterns = [
     path("room-changes", RoomChangesView.as_view(), name="room-changes"),
     path("weather", WeatherView.as_view(), name="weather"),
     path("start", StartView.as_view(), name="start"),
+    path("daily-message/verse", DailyVerseView.as_view(), name="daily-verse"),
     path("error-report", ErrorReportView.as_view(), name="error-report"),
     path(
         "robots.txt",

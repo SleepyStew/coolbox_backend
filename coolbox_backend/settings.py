@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "roomchanges",
     "weather",
     "errorreporting",
+    "dailymessages",
 ]
 
 MIDDLEWARE = [

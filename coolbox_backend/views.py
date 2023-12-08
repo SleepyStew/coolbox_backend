@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from dailymessages.views import DailyVerseView
 from reminders.views import RemindersView
 from roomchanges.views import RoomChangesView
 from schoolboxauth.views import UserView
@@ -38,6 +39,7 @@ class StartView(APIView):
                 "reminders": RemindersView.as_view(),
                 "weather": WeatherView.as_view(),
                 "room_changes": RoomChangesView.as_view(),
+                "daily_verse": DailyVerseView.as_view(),
             },
         )
         return Response(
