@@ -21,7 +21,7 @@ def get_daily_verse():
     DailyVerse.objects.all().delete()
     DailyVerse.objects.create(
         content=html.unescape(
-            daily_verse["text"].replace("&ldquo;", "").replace("&rdquo;", "")
+            daily_verse["content"]
         ),
         reference=daily_verse["reference"],
         link=daily_verse["permalink"],
