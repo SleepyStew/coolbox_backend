@@ -33,7 +33,7 @@ subjects_pretty = [
     ["GM", "General Maths"],
     ["Geog", "Geography"],
     ["HHD", "Health & Human Development"],
-    ["LegS", "Law"],
+    ["LegS", "Legal"],
     ["MM", "Maths Methods"],
     ["PE", "PE"],
     ["Psyc", "Psychology"],
