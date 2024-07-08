@@ -12,3 +12,9 @@ class Task(models.Model):
     type = models.CharField(max_length=128)
     due = models.DateTimeField()
     subject = models.CharField(max_length=128, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title
