@@ -174,6 +174,8 @@ Create a new task
 
 Fields: *Title, *Due, Subject, *Type
 
+Subject should be in NON-prettified form
+
 General Responses: 200, 400, 401
 
 ### PATCH /tasks
@@ -181,6 +183,8 @@ General Responses: 200, 400, 401
 Edit an existing task
 
 Fields: *Id, Title, Due, Subject, Type
+
+Subject should be in NON-prettified form
 
 General Responses: 200, 400, 401
 
