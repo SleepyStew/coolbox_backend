@@ -201,3 +201,41 @@ General Responses: 200, 400, 401
 Endpoint Specific Responses: 404
 
 ---
+
+### GET /assessment-notes
+
+Get all assessment notes
+
+General Responses: 200, 401
+
+### POST /assessment-notes
+
+Create a new assessment note
+
+Fields: *Assessment, *Content, 
+
+Assessment should be ID form
+
+General Responses: 200, 400, 401
+
+### PATCH /assessment-notes
+
+Edit an existing assessment note
+
+Fields: *Id
+
+General Responses: 200, 400, 401
+
+Endpoint Specific Responses: 404
+
+### DELETE /assessment-notes
+
+Delete an assessment note
+
+Fields: *Id
+
+General Responses: 200, 400, 401
+
+Endpoint Specific Responses: 404
+
+---
