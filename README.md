@@ -162,3 +162,38 @@ General Responses: 200, 401
 Endpoint Specific Responses: 404
 
 ---
+
+### GET /tasks
+Get all tasks
+
+General Responses: 200, 401
+
+### POST /tasks
+
+Create a new task
+
+Fields: *Title, *Due, Subject, *Type
+
+General Responses: 200, 400, 401
+
+### PATCH /tasks
+
+Edit an existing task
+
+Fields: *Id, Title, Due, Subject, Type
+
+General Responses: 200, 400, 401
+
+Endpoint Specific Responses: 404
+
+### DELETE /tasks
+
+Delete a task
+
+Fields: *Id
+
+General Responses: 200, 400, 401
+
+Endpoint Specific Responses: 404
+
+---
