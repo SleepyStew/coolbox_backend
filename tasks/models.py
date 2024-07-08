@@ -11,3 +11,4 @@ class Task(models.Model):
     content = models.TextField(null=True)
     type = models.CharField(max_length=128)
     due = models.DateTimeField()
+    subject = models.CharField(max_length=128, null=True)
