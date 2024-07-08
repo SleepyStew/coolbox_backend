@@ -222,7 +222,7 @@ General Responses: 200, 400, 401
 
 Edit an existing assessment note
 
-Fields: *Id
+Fields: *Id, Assessment, Content
 
 General Responses: 200, 400, 401
 
