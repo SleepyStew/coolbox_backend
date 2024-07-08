@@ -9,6 +9,7 @@ class Reminder(models.Model):
     author = models.ForeignKey("schoolboxauth.User", on_delete=models.CASCADE)
     method = models.CharField(max_length=16)
     assessment = models.IntegerField(null=True)
+    # TODO: Make this a real datetime field
     due = models.BigIntegerField()
 
     def __str__(self):
