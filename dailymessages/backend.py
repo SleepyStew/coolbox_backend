@@ -20,9 +20,7 @@ def get_daily_verse():
     daily_verse = daily_verse_request.json()["votd"]
     DailyVerse.objects.all().delete()
     DailyVerse.objects.create(
-        content=html.unescape(
-            daily_verse["content"]
-        ),
+        content=html.unescape(daily_verse["content"]),
         reference=daily_verse["reference"],
         link=daily_verse["permalink"],
     )
