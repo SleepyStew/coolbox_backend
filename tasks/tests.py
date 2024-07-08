@@ -42,12 +42,14 @@ class TaskViewTestCase(APITestCase):
             "title": "Test Reminder",
             "due": "2013-01-29T12:34:56.000000Z",
             "type": "homework",
+            "subject": "Test Subject",
         }
 
         response = self.client.patch(tasks_endpoint, task_edit, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["type"], task_edit["type"])
+        self.assertEqual(response.data["subject"], task_edit["subject"])
 
         task_delete = {
             "id": task_id,
