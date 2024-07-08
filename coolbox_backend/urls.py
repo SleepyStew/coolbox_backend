@@ -22,6 +22,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
+from assessmentnotes.views import AssessmentNotesView
 from coolbox_backend.views import IndexView, StartView
 from dailymessages.views import DailyVerseView
 from discordoauth.views import (
@@ -72,6 +73,7 @@ urlpatterns = [
         name="robots",
     ),
     path("tasks", TasksView.as_view(), name="tasks"),
+    path("assessment-notes", AssessmentNotesView.as_view(), name="assessment-notes"),
 ]
 
 
