@@ -24,11 +24,10 @@ class QuickNotesView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        current_notes = QuickNote.objects.filter(author=request.user)
+        current_notes = list(QuickNote.objects.filter(author=request.user).all())
+        QuickNote.objects.filter(author=request.user).delete()
 
         try:
-            QuickNote.objects.filter(author=request.user).delete()
-
             for index, quick_note in enumerate(request.data):
                 serializer = QuickNoteSerializer(data=quick_note)
                 if serializer.is_valid():
@@ -36,8 +35,6 @@ class QuickNotesView(APIView):
 
         # If there is an error, restore the previous notes
         except:
-            QuickNote.objects.filter(author=request.user).delete()
-
             for quick_note in current_notes:
                 quick_note.save()
 
