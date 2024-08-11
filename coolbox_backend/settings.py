@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "dailymessages",
     "tasks",
     "assessmentnotes",
+    "todos",
 ]
 
 MIDDLEWARE = [

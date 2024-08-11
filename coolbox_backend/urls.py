@@ -39,6 +39,7 @@ from schoolboxauth.views import UserView
 from stats.views import RunningView, UserCountView, MessageView
 from subjects.views import SubjectView
 from tasks.views import TasksView
+from todos.views import TodoListView
 from weather.views import WeatherView
 
 urlpatterns = [
@@ -74,6 +75,7 @@ urlpatterns = [
     ),
     path("tasks", TasksView.as_view(), name="tasks"),
     path("assessment-notes", AssessmentNotesView.as_view(), name="assessment-notes"),
+    path("todos", TodoListView.as_view(), name="todos"),
 ]
 
 
