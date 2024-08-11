@@ -1,5 +1,7 @@
 # Priority ascending (Lowest has highest priority)
 subjects_pretty = [
+    ["Hub", "Hub Class"],
+    ["External", "External Study"],
     ["Cell", "Cell"],
     ["SptRec", "Sports Recreation"],
     ["Comp", "Computing"],
