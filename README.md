@@ -239,3 +239,49 @@ General Responses: 200, 400, 401
 Endpoint Specific Responses: 404
 
 ---
+
+### GET /todos
+
+Get all todos, includes items
+
+General Responses: 200, 401
+
+### POST /todos
+
+Create a new todo
+
+Fields: *Title
+
+General Responses: 200, 400, 401
+
+### PATCH /todos
+
+Edit an existing todo
+
+Fields: *Id, Title
+
+General Responses: 200, 400, 401
+
+Endpoint Specific Responses: 404
+
+### DELETE /todos
+
+Delete a todo
+
+Fields: *Id
+
+General Responses: 200, 400, 401
+
+Endpoint Specific Responses: 404
+
+### PUT /todos
+
+Override todo items (and order) for a todo
+
+Fields: *Id, *Items (List of objects(*Content))
+
+General Responses: 200, 400, 401
+
+Endpoint Specific Responses: 404
+
+---
