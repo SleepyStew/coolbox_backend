@@ -17,7 +17,7 @@ class TodoViewTestCase(APITestCase):
         self.assertEqual(len(response.data), 0)
 
         todo = {
-            "name": "Test Todo"
+            "title": "Test Todo"
         }
 
         response = self.client.post(
@@ -25,12 +25,12 @@ class TodoViewTestCase(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["name"], "Test Todo")
+        self.assertEqual(response.data["title"], "Test Todo")
         self.assertEqual(len(response.data["items"]), 0)
 
         todo_change = {
             "id": response.data["id"],
-            "name": "Test Todo Changed"
+            "title": "Test Todo Changed"
         }
 
         response = self.client.patch(
@@ -38,7 +38,7 @@ class TodoViewTestCase(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["name"], "Test Todo Changed")
+        self.assertEqual(response.data["title"], "Test Todo Changed")
 
         todo_items = {
             "id": response.data["id"],
