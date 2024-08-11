@@ -12,8 +12,8 @@ from schoolboxauth.backend import token_auth
 class TasksView(APIView):
     @method_decorator(token_auth)
     def get(self, request):
-        reminders = Task.objects.filter(author=request.user)
-        serializer = TaskSerializer(reminders, many=True)
+        tasks = Task.objects.filter(author=request.user)
+        serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @method_decorator(token_auth)
@@ -31,12 +31,12 @@ class TasksView(APIView):
     def delete(self, request):
         if not request.data.get("id"):
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        reminder = Task.objects.filter(id=request.data.get("id")).first()
-        if reminder:
-            if reminder.author != request.user:
+        task = Task.objects.filter(id=request.data.get("id")).first()
+        if task:
+            if task.author != request.user:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-            reminder.delete()
+            task.delete()
             return Response(status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -45,12 +45,12 @@ class TasksView(APIView):
     def patch(self, request):
         if not request.data.get("id"):
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        reminder = Task.objects.filter(id=request.data.get("id")).first()
-        if reminder:
-            if reminder.author != request.user:
+        task = Task.objects.filter(id=request.data.get("id")).first()
+        if task:
+            if task.author != request.user:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-            serializer = TaskSerializer(reminder, data=request.data, partial=True)
+            serializer = TaskSerializer(task, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
