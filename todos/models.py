@@ -7,6 +7,7 @@ class TodoList(models.Model):
     author = models.ForeignKey("schoolboxauth.User", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    display_id = models.IntegerField(null=True)
 
 
 class TodoItem(models.Model):
@@ -14,3 +15,4 @@ class TodoItem(models.Model):
     list = models.ForeignKey(TodoList, on_delete=models.CASCADE)
     colour = models.CharField(max_length=7, null=True)
     display_id = models.IntegerField()
+    completed = models.BooleanField(default=False)
