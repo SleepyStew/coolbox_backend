@@ -10,6 +10,7 @@ def authenticated_test_client():
     user = User(
         id=1,
         name="Test User",
+        is_staff=True,
     )
     user.save()
     token_object = Token(token=hash_token(token), user=user, valid=True)

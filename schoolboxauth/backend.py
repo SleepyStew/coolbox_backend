@@ -20,6 +20,7 @@ ERROR_NO_PERMISSION = "You do not have permission to perform this action."
 ERROR_ACCOUNT_INACTIVE = (
     "Your account is deactivated. You do not have access to CoolBox."
 )
+ERROR_NOT_DEVELOPER = "You are not a developer. You do not have access to this endpoint."
 
 
 def hash_token(token):
@@ -41,6 +42,15 @@ def check_account_deactivated(request, user):
         return Response(
             {"detail": ERROR_ACCOUNT_INACTIVE},
             status.HTTP_401_UNAUTHORIZED,
+        )
+    return False
+
+
+def check_not_developer(request, user):
+    if request.path[1:] in os.environ.get("DEVELOPER_ENDPOINTS") and not user.is_staff:
+        return Response(
+            {"detail": ERROR_NOT_DEVELOPER},
+            status.HTTP_403_FORBIDDEN,
         )
     return False
 
@@ -115,6 +125,11 @@ def verify_token(request, function, internal=False, *args, **kwargs):
                 if account_deactivated:
                     return account_deactivated
 
+                not_developer = check_not_developer(request, token_object.user)
+
+                if not_developer:
+                    return not_developer
+
                 request.user = token_object.user
                 request.token = token
                 print("Request from", token_object.user.name)
@@ -141,6 +156,11 @@ def verify_token(request, function, internal=False, *args, **kwargs):
 
                 if account_deactivated:
                     return account_deactivated
+
+                not_developer = check_not_developer(request, user)
+
+                if not_developer:
+                    return not_developer
 
                 request.user = user
                 request.token = token

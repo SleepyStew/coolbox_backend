@@ -42,6 +42,9 @@ from tasks.views import TasksView
 from todos.views import TodoListView
 from weather.views import WeatherView
 
+
+
+
 urlpatterns = [
     path("cba", admin.site.urls),
     path("", IndexView.as_view(), name="index"),
