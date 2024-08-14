@@ -5,12 +5,12 @@ from todos.models import TodoList, TodoItem
 class TodoItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoItem
-        fields = ['content', 'colour', 'completed']
+        fields = ["content", "colour", "completed"]
 
 
 class TodoListSerializer(serializers.ModelSerializer):
-    items = TodoItemSerializer(many=True, read_only=True, source='todoitem_set')
+    items = TodoItemSerializer(many=True, read_only=True, source="todoitem_set")
 
     class Meta:
         model = TodoList
-        fields = ['id', 'title', 'items', 'display_id']
+        fields = ["id", "title", "items", "display_id"]

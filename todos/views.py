@@ -81,7 +81,9 @@ class TodoListView(APIView):
                     if serializer.is_valid():
                         serializer.save(list=todo, display_id=index)
                     else:
-                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                        return Response(
+                            serializer.errors, status=status.HTTP_400_BAD_REQUEST
+                        )
 
             except Exception as e:
                 for item in current_items:

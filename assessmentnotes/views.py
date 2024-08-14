@@ -31,7 +31,9 @@ class AssessmentNotesView(APIView):
     def delete(self, request):
         if not request.data.get("id"):
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        assessment_note = AssessmentNote.objects.filter(id=request.data.get("id")).first()
+        assessment_note = AssessmentNote.objects.filter(
+            id=request.data.get("id")
+        ).first()
         if assessment_note:
             if assessment_note.author != request.user:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -45,7 +47,9 @@ class AssessmentNotesView(APIView):
     def patch(self, request):
         if not request.data.get("id"):
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        assessment_note = AssessmentNote.objects.filter(id=request.data.get("id")).first()
+        assessment_note = AssessmentNote.objects.filter(
+            id=request.data.get("id")
+        ).first()
         if assessment_note:
             if assessment_note.author != request.user:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)

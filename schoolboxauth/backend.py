@@ -20,7 +20,9 @@ ERROR_NO_PERMISSION = "You do not have permission to perform this action."
 ERROR_ACCOUNT_INACTIVE = (
     "Your account is deactivated. You do not have access to CoolBox."
 )
-ERROR_NOT_DEVELOPER = "You are not a developer. You do not have access to this endpoint."
+ERROR_NOT_DEVELOPER = (
+    "You are not a developer. You do not have access to this endpoint."
+)
 
 
 def hash_token(token):

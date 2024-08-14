@@ -22,9 +22,11 @@ def get_forecast():
         for i in range(days):
             time_real = datetime.fromtimestamp(response["daily"]["time"][i])
             forecast[i] = {
-                "time": humanize.naturalday(time_real).title()
-                if i < 2
-                else time_real.strftime("%A"),
+                "time": (
+                    humanize.naturalday(time_real).title()
+                    if i < 2
+                    else time_real.strftime("%A")
+                ),
                 "time_real": str(time_real),
                 "weathercode": weathercodes[response["daily"]["weathercode"][i]],
                 "temperature_2m_max": response["daily"]["temperature_2m_max"][i],

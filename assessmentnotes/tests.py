@@ -21,7 +21,9 @@ class AssessmentNoteViewTestCase(APITestCase):
             "assessment": 12345678,
         }
 
-        response = self.client.post(assessment_notes_endpoint, assessment_note, format="json")
+        response = self.client.post(
+            assessment_notes_endpoint, assessment_note, format="json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["content"], assessment_note["content"])
@@ -36,10 +38,12 @@ class AssessmentNoteViewTestCase(APITestCase):
 
         assessment_note_edit = {
             "id": assessment_note_id,
-            "content": "Test Assessment Note Change"
+            "content": "Test Assessment Note Change",
         }
 
-        response = self.client.patch(assessment_notes_endpoint, assessment_note_edit, format="json")
+        response = self.client.patch(
+            assessment_notes_endpoint, assessment_note_edit, format="json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["content"], assessment_note_edit["content"])
