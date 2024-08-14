@@ -15,6 +15,7 @@ jobs:
       WEATHER_API_URL: ${{ secrets.WEATHER_API_URL }}
       FEED_URL: ${{ secrets.FEED_URL }}
       DEBUG: "True"
+      DEVELOPER_ENDPOINTS: ""
 
     runs-on: ubuntu-latest
     strategy:
