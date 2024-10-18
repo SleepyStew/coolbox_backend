@@ -9,6 +9,7 @@ from reminders.views import RemindersView
 from roomchanges.views import RoomChangesView
 from schoolboxauth.views import UserView
 from stats.views import MessageView
+from tasks.views import TasksView
 from weather.views import WeatherView
 
 
@@ -40,6 +41,7 @@ class StartView(APIView):
                 "weather": WeatherView.as_view(),
                 "room_changes": RoomChangesView.as_view(),
                 "daily_verse": DailyVerseView.as_view(),
+                "tasks": TasksView.as_view(),
             },
         )
         return Response(
