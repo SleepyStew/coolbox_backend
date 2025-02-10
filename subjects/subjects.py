@@ -73,7 +73,7 @@ subjects_pretty = [
     ["VETAnim", "Animals & Learning"],
     ["Farm", "Farm"],
     ["Acc", "Accounting"],
-    ["VSV", "VSV"],  # What is this?
+    ["VSV", "VSV"],
     ["Beyo", "Beyond the Pages"],
     ["FM", "Foundation Maths"],
 ]
